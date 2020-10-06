@@ -7,18 +7,17 @@ import { hoverable } from '../../hocs/hoverable'
 type Tag = 'button' | 'a'
 type Size = 'default' | 's'
 
-export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
-  BaseProps
-export type AnchorProps = React.ButtonHTMLAttributes<HTMLAnchorElement> &
-  BaseProps
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & BaseProps
+type AnchorProps = React.ButtonHTMLAttributes<HTMLAnchorElement> & BaseProps
 
-export type BaseProps = {
+type BaseProps = {
   size?: Size
   className?: string
   prefix?: React.ReactNode
   suffix?: React.ReactNode
   square?: boolean
   wide?: boolean
+  as?: Tag
 }
 
 export const buttonFactory: <T extends BaseProps>(tag: Tag) => FC<T> = (
@@ -45,7 +44,10 @@ export const buttonFactory: <T extends BaseProps>(tag: Tag) => FC<T> = (
   }
 }
 
-const Base = styled.div<{ themes: Theme; wide: boolean; as: any }>`
+const Base: React.ComponentType<BaseProps> = styled.div<{
+  themes: Theme
+  wide: boolean
+}>`
   ${({ themes, wide }) => {
     const { frame, size } = themes
 

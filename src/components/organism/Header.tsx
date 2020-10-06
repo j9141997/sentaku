@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 
 import { Theme, useTheme } from '../../hooks/useTheme'
 
-import { HeaderButton } from '@components/atom/HeaderButton'
+import { PrimaryButton } from '@components/atom/PrimaryButton'
 
 type Props = {
   className?: string
@@ -22,7 +22,7 @@ export const Header: FC<Props> = ({ className }) => {
         </HeaderColumn>
 
         <HeaderColumn>
-          <HeaderButton>{displayName}</HeaderButton>
+          <PrimaryButton>新規登録</PrimaryButton>
         </HeaderColumn>
       </HeaderContainer>
     </Wrapper>
