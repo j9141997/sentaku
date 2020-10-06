@@ -3,6 +3,8 @@ import styled, { css } from 'styled-components'
 
 import { Theme, useTheme } from '../../hooks/useTheme'
 
+import { HeaderButton } from '@components/atom/HeaderButton'
+
 type Props = {
   className?: string
 }
@@ -14,10 +16,15 @@ export const Header: FC<Props> = ({ className }) => {
 
   return (
     <Wrapper themes={theme}>
-      <HeaderColumn>
-        <HeaderLogo>{title}</HeaderLogo>
-      </HeaderColumn>
-      {displayName}
+      <HeaderContainer>
+        <HeaderColumn>
+          <HeaderLogo>{title}</HeaderLogo>
+        </HeaderColumn>
+
+        <HeaderColumn>
+          <HeaderButton>{displayName}</HeaderButton>
+        </HeaderColumn>
+      </HeaderContainer>
     </Wrapper>
   )
 }
@@ -25,16 +32,28 @@ export const Header: FC<Props> = ({ className }) => {
 const Wrapper = styled.header<{ themes: Theme }>`
   ${({ themes }) => {
     const { size, palette } = themes
+    const { PC } = themes.size.mediaQuery
 
     return css`
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 50px;
+      height: 56px;
       padding: 0 ${size.pxToRem(size.space.XS)};
       background: ${palette.MAIN};
+
+      @media (min-width: ${PC}) {
+        height: 72px;
+      }
     `
   }}
+`
+
+const HeaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media (min-width: 1024px) {
+    max-width: 1024px;
+    margin: 0 auto;
+  }
 `
 
 const HeaderColumn = styled.div`
@@ -49,6 +68,7 @@ const HeaderLogo = styled.button`
   background: none;
   box-sizing: border-box;
   cursor: pointer;
+  color: #fff;
 
   &:hover {
     opacity: 0.7;

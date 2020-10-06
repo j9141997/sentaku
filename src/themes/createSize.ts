@@ -25,6 +25,7 @@ export type SizeProps = {
   mediaQuery?: {
     SP?: number
     TABLET?: number
+    PC?: number
   }
 }
 
@@ -48,6 +49,7 @@ export type CreatedSizeTheme = {
   mediaQuery: {
     SP: number
     TABLET: number
+    PC: number
   }
 }
 
@@ -68,7 +70,7 @@ const getSpace = (size: number) => {
 }
 
 const defaultFontSize = { SHORT: 11, TALL: 14, GRANDE: 18, VENTI: 24 }
-const defaultMediaQuery = { SP: 599, TABLET: 959 }
+const defaultMediaQuery = { SP: 599, TABLET: 959, PC: 1024 }
 const defaultSpace = getSpace(defaultSpaceSize)
 
 export const defaultSize: CreatedSizeTheme = {
