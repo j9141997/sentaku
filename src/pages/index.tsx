@@ -1,14 +1,12 @@
-import Link from 'next/link'
+import React, { FC } from 'react'
 import Layout from '../components/Layout'
+import { PanelList } from '@components/organism/PanelList'
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
-  </Layout>
-)
-
+const IndexPage: FC = () => {
+  return (
+    <Layout>
+      <PanelList />
+    </Layout>
+  )
+}
 export default IndexPage
