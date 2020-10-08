@@ -34,11 +34,13 @@ const Layout: FC<Props> = ({
 
 const StyledArticle = styled.article<{ themes: Theme }>`
   ${({ themes }) => {
+    const { size } = themes
     const { PC } = themes.size.mediaQuery
 
     return css`
       max-width: ${PC}px;
       margin: 0 auto;
+      padding: ${size.pxToRem(size.space.XS)} 0;
     `
   }}
 `

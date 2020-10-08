@@ -1,17 +1,11 @@
 import React, { FC } from 'react'
 import Layout from '../components/Layout'
-import { Panel } from '@components/organism/Panel'
-
-// const IndexPage = () => (
-//   <Layout>
-//     <Panel />
-//   </Layout>
-// )
+import { PanelList } from '@components/organism/PanelList'
 
 const IndexPage: FC = () => {
   return (
     <Layout>
-      <Panel />
+      <PanelList />
     </Layout>
   )
 }
