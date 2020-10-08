@@ -20,7 +20,14 @@ export const PanelList: FC<Props> = () => {
   return (
     <Wrapper themes={theme}>
       {data.map((item, i) => {
-        return <StyledPanel key={`item${i}`} item={item} themes={theme} />
+        return (
+          <StyledPanel
+            key={`item${i}`}
+            item={item}
+            onClick={() => console.log(`clicked-${i}`)}
+            themes={theme}
+          />
+        )
       })}
     </Wrapper>
   )

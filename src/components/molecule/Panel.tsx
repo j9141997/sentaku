@@ -8,13 +8,14 @@ type Props = {
     title?: string
     description?: string
   }
+  onClick?: () => void
 }
 
 export const Panel: FC<Props> = ({ item, ...props }) => {
   const theme = useTheme()
 
   return (
-    <Wrapper themes={theme} {...props}>
+    <Wrapper {...props}>
       <Content themes={theme}>
         <ContentTitle themes={theme}>{item.title}</ContentTitle>
       </Content>
@@ -25,6 +26,7 @@ export const Panel: FC<Props> = ({ item, ...props }) => {
 
 const Wrapper = styled.div`
   width: inherit;
+  cursor: pointer;
 `
 const Content = styled.div<{ themes: Theme }>`
   ${({ themes }) => {
