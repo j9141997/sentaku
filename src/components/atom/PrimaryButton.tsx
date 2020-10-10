@@ -7,6 +7,10 @@ import { BaseButton, BaseButtonAnchor } from './BaseButton'
 
 type ButtonProps = ComponentProps<typeof BaseButton>
 type AnchorProps = ComponentProps<typeof BaseButtonAnchor>
+type RefAnchorProps = {
+  href?: any
+  onClick?: () => void
+} & ComponentProps<typeof BaseButtonAnchor>
 
 export const PrimaryButton: FC<ButtonProps> = (props) => {
   const theme = useTheme()
@@ -16,6 +20,22 @@ export const PrimaryButton: FC<ButtonProps> = (props) => {
 export const PrimaryButtonAnchor: FC<AnchorProps> = (props) => {
   const theme = useTheme()
   return <PrimaryStyleButtonAnchor themes={theme} {...props} />
+}
+
+export const RefPrimaryButtonAnchor: React.ForwardRefRenderFunction<RefAnchorProps> = (
+  { href, onClick, ...props },
+  ref
+) => {
+  const theme = useTheme()
+  return (
+    <PrimaryStyleButtonAnchor
+      themes={theme}
+      href={href}
+      onClick={onClick}
+      ref={ref}
+      {...props}
+    />
+  )
 }
 
 const primaryStyle = css`
