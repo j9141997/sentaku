@@ -1,19 +1,27 @@
 import React, { FC } from 'react'
+import Link from 'next/link'
 import styled, { css } from 'styled-components'
 
 import { Theme, useTheme } from '../../hooks/useTheme'
 
-import { PrimaryButton } from '@components/atom/PrimaryButton'
-import { SecondaryButton } from '@components/atom/SecondaryButton'
+import { PrimaryButtonAnchor } from '@components/atom/PrimaryButton'
+import { SecondaryButtonAnchor } from '@components/atom/SecondaryButton'
 
 type Props = {
   className?: string
 }
 
+function wrappedRef(WrappedComponent): any {
+  return React.forwardRef((props, ref) => {
+    return <WrappedComponent {...props} forwardedRef={ref} />
+  })
+}
+
 export const Header: FC<Props> = ({ className }) => {
   const theme = useTheme()
   const title = 'sentaku'
-  const displayName = 'Junki Yoshida'
+  const RefPrimaryStyledButton = wrappedRef(PrimaryStyledButton)
+  const RefSecondaryStyledButton = wrappedRef(SecondaryStyledButton)
 
   return (
     <Wrapper themes={theme}>
@@ -23,8 +31,14 @@ export const Header: FC<Props> = ({ className }) => {
         </HeaderColumn>
 
         <HeaderColumn>
-          <SecondaryButton>ログイン</SecondaryButton>
-          <PrimaryStyledButton themes={theme}>新規登録</PrimaryStyledButton>
+          <Link href="/login">
+            <RefSecondaryStyledButton>ログイン</RefSecondaryStyledButton>
+          </Link>
+          <Link href="/signup">
+            <RefPrimaryStyledButton themes={theme}>
+              新規登録
+            </RefPrimaryStyledButton>
+          </Link>
         </HeaderColumn>
       </HeaderContainer>
     </Wrapper>
@@ -91,7 +105,7 @@ const HeaderLogo = styled.button<{ themes: Theme }>`
   }}
 `
 
-const PrimaryStyledButton = styled(PrimaryButton)<{ themes: Theme }>`
+const PrimaryStyledButton = styled(PrimaryButtonAnchor)<{ themes: Theme }>`
   ${({ themes }) => {
     const { size } = themes
 
@@ -100,3 +114,5 @@ const PrimaryStyledButton = styled(PrimaryButton)<{ themes: Theme }>`
     `
   }}
 `
+
+const SecondaryStyledButton = styled(SecondaryButtonAnchor)``

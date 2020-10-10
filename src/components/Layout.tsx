@@ -13,7 +13,7 @@ type Props = {
 
 const Layout: FC<Props> = ({
   children,
-  title = 'This is the default title',
+  title = 'sentaku ーー人生の選択肢を幅広く。',
 }) => {
   const theme = useTheme()
   return (
