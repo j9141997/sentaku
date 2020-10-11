@@ -1,9 +1,10 @@
-import React, { FC } from 'react'
+import React, { FC, ComponentProps, ComponentType } from 'react'
 import Link from 'next/link'
 import styled, { css } from 'styled-components'
 
 import { Theme, useTheme } from '../../hooks/useTheme'
 
+import { linkable } from '../../hocs/linkable'
 import { PrimaryButtonAnchor } from '@components/atom/PrimaryButton'
 import { SecondaryButtonAnchor } from '@components/atom/SecondaryButton'
 
@@ -11,17 +12,13 @@ type Props = {
   className?: string
 }
 
-function wrappedRef(WrappedComponent): any {
-  return React.forwardRef((props, ref) => {
-    return <WrappedComponent {...props} forwardedRef={ref} />
-  })
-}
-
 export const Header: FC<Props> = ({ className }) => {
   const theme = useTheme()
   const title = 'sentaku'
-  const RefPrimaryStyledButton = wrappedRef(PrimaryStyledButton)
-  const RefSecondaryStyledButton = wrappedRef(SecondaryStyledButton)
+  const LinkPrimaryStyledButton = linkable(PrimaryStyledButton)
+  const LinkSecondaryStyledButton = linkable(SecondaryStyledButton)
+  LinkPrimaryStyledButton.displayName = `ForwardedRefComponent(${PrimaryStyledButton.displayName})`
+  LinkSecondaryStyledButton.displayName = `ForwardedRefComponent(${SecondaryStyledButton.displayName})`
 
   return (
     <Wrapper themes={theme}>
@@ -32,12 +29,12 @@ export const Header: FC<Props> = ({ className }) => {
 
         <HeaderColumn>
           <Link href="/login">
-            <RefSecondaryStyledButton>ログイン</RefSecondaryStyledButton>
+            <LinkSecondaryStyledButton>ログイン</LinkSecondaryStyledButton>
           </Link>
           <Link href="/signup">
-            <RefPrimaryStyledButton themes={theme}>
+            <LinkPrimaryStyledButton themes={theme}>
               新規登録
-            </RefPrimaryStyledButton>
+            </LinkPrimaryStyledButton>
           </Link>
         </HeaderColumn>
       </HeaderContainer>
@@ -105,7 +102,10 @@ const HeaderLogo = styled.button<{ themes: Theme }>`
   }}
 `
 
-const PrimaryStyledButton = styled(PrimaryButtonAnchor)<{ themes: Theme }>`
+const PrimaryStyledButton = styled(PrimaryButtonAnchor)<{
+  themes: Theme
+  ref: any
+}>`
   ${({ themes }) => {
     const { size } = themes
 
