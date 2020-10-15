@@ -27,6 +27,8 @@ export const Panel: FC<Props> = ({ item, ...props }) => {
 const Wrapper = styled.div`
   width: inherit;
   cursor: pointer;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
 `
 const Content = styled.div<{ themes: Theme }>`
   ${({ themes }) => {
@@ -35,10 +37,9 @@ const Content = styled.div<{ themes: Theme }>`
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 140px;
+      height: 300px;
       background: ${palette.MAIN};
       color: #fff;
-      border-radius: ${frame.border.radius.s} ${frame.border.radius.s} 0 0;
     `
   }}
 `
@@ -61,7 +62,6 @@ const Summary = styled.div<{ themes: Theme }>`
       height: 80px;
       background: #f9f9f9;
       padding: ${size.pxToRem(size.space.XXS)} ${size.pxToRem(size.space.XS)};
-      border-radius: 0 0 ${frame.border.radius.s} ${frame.border.radius.s};
     `
   }}
 `

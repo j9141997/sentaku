@@ -3,6 +3,8 @@ import { AppProps } from 'next/app'
 import { createGlobalStyle } from 'styled-components'
 import reset from 'styled-reset'
 
+import { AuthProvider } from '../hooks/Auth'
+
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   const GlocalStyle = createGlobalStyle`
     ${reset}
@@ -14,7 +16,9 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   return (
     <React.Fragment>
       <GlocalStyle />
-      <Component {...pageProps} />
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
     </React.Fragment>
   )
 }
