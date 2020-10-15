@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import Layout from '../components/Layout'
-import AuthContainer from '@components/template/AuthContainer'
+import AuthContainer from '@components/template/AuthTemplate'
 
 import { GoogleAuthButton } from '@components/atom/GoogleAuthButton'
 const LoginPage: FC = () => {

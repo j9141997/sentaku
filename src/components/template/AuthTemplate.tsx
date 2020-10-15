@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 
 import { Theme, useTheme } from '../../hooks/useTheme'
 
-const AuthContainer: FC = ({ children }) => {
+const AuthTemplate: FC = ({ children }) => {
   const theme = useTheme()
   return <Wrapper themes={theme}>{children}</Wrapper>
 }
@@ -20,4 +20,4 @@ const Wrapper = styled.article<{ themes: Theme }>`
   }}
 `
 
-export default AuthContainer
+export default AuthTemplate
