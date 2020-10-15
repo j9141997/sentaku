@@ -1,4 +1,4 @@
-import React, { FC, ComponentProps, ComponentType } from 'react'
+import React, { FC } from 'react'
 import Link from 'next/link'
 import styled, { css } from 'styled-components'
 
@@ -15,16 +15,14 @@ type Props = {
 export const Header: FC<Props> = ({ className }) => {
   const theme = useTheme()
   const title = 'sentaku'
-  const LinkPrimaryStyledButton = linkable(PrimaryStyledButton)
-  const LinkSecondaryStyledButton = linkable(SecondaryStyledButton)
-  LinkPrimaryStyledButton.displayName = `ForwardedRefComponent(${PrimaryStyledButton.displayName})`
-  LinkSecondaryStyledButton.displayName = `ForwardedRefComponent(${SecondaryStyledButton.displayName})`
 
   return (
     <Wrapper themes={theme}>
       <HeaderContainer themes={theme}>
         <HeaderColumn>
-          <HeaderLogo themes={theme}>{title}</HeaderLogo>
+          <Link href="/">
+            <LinkHeaderLogo themes={theme}>{title}</LinkHeaderLogo>
+          </Link>
         </HeaderColumn>
 
         <HeaderColumn>
@@ -44,13 +42,13 @@ export const Header: FC<Props> = ({ className }) => {
 
 const Wrapper = styled.header<{ themes: Theme }>`
   ${({ themes }) => {
-    const { size } = themes
+    const { size, palette } = themes
     const { PC } = themes.size.mediaQuery
 
     return css`
       height: 56px;
       padding: 0 ${size.pxToRem(size.space.XS)};
-      background: #f9f9f9;
+      border-bottom: 1px solid #f9f9f9;
 
       @media (min-width: ${PC}px) {
         height: 72px;
@@ -102,10 +100,7 @@ const HeaderLogo = styled.button<{ themes: Theme }>`
   }}
 `
 
-const PrimaryStyledButton = styled(PrimaryButtonAnchor)<{
-  themes: Theme
-  ref: any
-}>`
+const PrimaryStyledButton = styled(PrimaryButtonAnchor)<{ themes: Theme }>`
   ${({ themes }) => {
     const { size } = themes
 
@@ -116,3 +111,9 @@ const PrimaryStyledButton = styled(PrimaryButtonAnchor)<{
 `
 
 const SecondaryStyledButton = styled(SecondaryButtonAnchor)``
+
+const LinkPrimaryStyledButton = linkable(PrimaryStyledButton)
+const LinkSecondaryStyledButton = linkable(SecondaryStyledButton)
+const LinkHeaderLogo = linkable(HeaderLogo)
+LinkPrimaryStyledButton.displayName = `ForwardedRefComponent(${PrimaryStyledButton.displayName})`
+LinkSecondaryStyledButton.displayName = `ForwardedRefComponent(${SecondaryStyledButton.displayName})`

@@ -23,11 +23,10 @@ const SecondaryStyle = css`
     const { palette } = themes
 
     return css`
-      color: #fff;
+      color: ${palette.TEXT_BLACK};
       border: none;
-      background-color: ${palette.MAIN};
-      color: #fff;
-
+      background-color: #fff;
+      border-color: ${palette.MAIN};
       &.hover {
         background-color: ${palette.hoverColor(palette.MAIN)};
       }
