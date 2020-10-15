@@ -6,6 +6,10 @@ import reset from 'styled-reset'
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   const GlocalStyle = createGlobalStyle`
     ${reset}
+
+    body {
+      font-family: 'Roboto', 'Noto Sans JP', sans-serif;
+    }
   `
   return (
     <React.Fragment>

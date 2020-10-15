@@ -21,6 +21,7 @@ export type CreatedPaletteTheme = {
   BORDER: string
   BACKGROUND: string
   MAIN: string
+  SUB: string
   DANGER: string
   OUTLINE: string
 }
@@ -31,7 +32,8 @@ export const defaultPalette = {
   TEXT_LINK: '#007bc2',
   BORDER: '#8e8e93',
   BACKGROUND: '#fff',
-  MAIN: '#6b9e7c',
+  MAIN: '#2b2b2b',
+  SUB: '#6b9e7c',
   DANGER: '#ff8800',
 }
 

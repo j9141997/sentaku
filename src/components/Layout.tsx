@@ -1,8 +1,7 @@
 import React, { FC, ReactNode } from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import Head from 'next/head'
 
-import { Theme, useTheme } from '../hooks/useTheme'
 import { Header } from '@components/organism/Header'
 import { Footer } from '@components/organism/Footer'
 
@@ -15,7 +14,6 @@ const Layout: FC<Props> = ({
   children,
   title = 'sentaku ーー人生の選択肢を幅広く。',
 }) => {
-  const theme = useTheme()
   return (
     <div>
       <Head>
@@ -24,24 +22,14 @@ const Layout: FC<Props> = ({
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Header />
-      <main>
-        <StyledArticle themes={theme}>{children}</StyledArticle>
-      </main>
+      <Main>{children}</Main>
       <Footer />
     </div>
   )
 }
 
-const StyledArticle = styled.article<{ themes: Theme }>`
-  ${({ themes }) => {
-    const { size } = themes
-    const { PC } = themes.size.mediaQuery
-
-    return css`
-      max-width: ${PC}px;
-      margin: 0 auto;
-      padding: ${size.pxToRem(size.space.XS)} 0;
-    `
-  }}
+const Main = styled.main`
+  min-height: 100vh;
 `
+
 export default Layout
