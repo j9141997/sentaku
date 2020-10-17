@@ -3,7 +3,7 @@ import { AppProps } from 'next/app'
 import { createGlobalStyle } from 'styled-components'
 import reset from 'styled-reset'
 
-import { AuthProvider } from '../hooks/Auth'
+import { AuthProvider } from '../auths/AuthProvider'
 
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   const GlocalStyle = createGlobalStyle`
