@@ -8,11 +8,6 @@ import { GoogleAuthButton } from '@components/atom/GoogleAuthButton'
 import { useAuth } from '../hooks/useAuth'
 import firebase from '../../utils/firebase'
 
-// const useDidMount = (func: () => void) =>
-//   useEffect(() => {
-//     func()
-//   }, [])
-
 type Params = {
   email: string
   password: string
@@ -21,7 +16,6 @@ type Params = {
 const SignUpPage: FC = () => {
   const [params, setParams] = useState<Params>({ email: '', password: '' })
   const { currentUser } = useAuth()
-  console.log(currentUser)
 
   useEffect(() => {
     isSignedIn()

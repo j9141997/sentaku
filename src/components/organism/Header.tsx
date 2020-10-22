@@ -1,10 +1,13 @@
 import React, { FC } from 'react'
 import Link from 'next/link'
 import styled, { css } from 'styled-components'
+import firebase from '../../../utils/firebase'
 
 import { Theme, useTheme } from '../../hooks/useTheme'
 
 import { linkable } from '../../hocs/linkable'
+import { useAuth } from '../../hooks/useAuth'
+import { HeaderDropDown } from '@components/atom/HeaderDropDown'
 import { PrimaryButtonAnchor } from '@components/atom/PrimaryButton'
 import { SecondaryButtonAnchor } from '@components/atom/SecondaryButton'
 
@@ -13,7 +16,21 @@ type Props = {
 }
 
 export const Header: FC<Props> = ({ className }) => {
+  const signOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        console.log('logout!')
+        location.reload()
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
   const theme = useTheme()
+  const { currentUser } = useAuth()
   const title = 'sentaku'
 
   return (
@@ -24,17 +41,22 @@ export const Header: FC<Props> = ({ className }) => {
             <LinkHeaderLogo themes={theme}>{title}</LinkHeaderLogo>
           </Link>
         </HeaderColumn>
-
-        <HeaderColumn>
-          <Link href="/login">
-            <LinkSecondaryStyledButton>ログイン</LinkSecondaryStyledButton>
-          </Link>
-          <Link href="/signup">
-            <LinkPrimaryStyledButton themes={theme}>
-              新規登録
-            </LinkPrimaryStyledButton>
-          </Link>
-        </HeaderColumn>
+        {currentUser ? (
+          <HeaderColumn>
+            <HeaderDropDown />
+          </HeaderColumn>
+        ) : (
+          <HeaderColumn>
+            <Link href="/login">
+              <LinkSecondaryStyledButton>ログイン</LinkSecondaryStyledButton>
+            </Link>
+            <Link href="/signup">
+              <LinkPrimaryStyledButton themes={theme}>
+                新規登録
+              </LinkPrimaryStyledButton>
+            </Link>
+          </HeaderColumn>
+        )}
       </HeaderContainer>
     </Wrapper>
   )
@@ -42,7 +64,7 @@ export const Header: FC<Props> = ({ className }) => {
 
 const Wrapper = styled.header<{ themes: Theme }>`
   ${({ themes }) => {
-    const { size, palette } = themes
+    const { size } = themes
     const { PC } = themes.size.mediaQuery
 
     return css`
