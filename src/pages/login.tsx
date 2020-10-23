@@ -8,7 +8,6 @@ import { useAuth } from 'src/hooks/useAuth'
 import firebase from '../../utils/firebase'
 const LoginPage: FC = () => {
   const { currentUser } = useAuth()
-  console.log(currentUser)
 
   useEffect(() => {
     isSignedIn()
