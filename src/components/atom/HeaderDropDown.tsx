@@ -9,7 +9,11 @@ import {
   DropdownContent,
 } from '@components/dropdown/index'
 
-export const HeaderDropDown: FC = (props) => {
+type Props = {
+  onClick?: () => void
+}
+
+export const HeaderDropDown: FC<Props> = ({ onClick }) => {
   const { currentUser } = useAuth()
   const theme = useTheme()
 
@@ -24,12 +28,7 @@ export const HeaderDropDown: FC = (props) => {
 
       <DropdownContent>
         <MenuList themes={theme}>
-          <ul>
-            <li>Item1</li>
-            <li>Item2</li>
-            <li>Item3</li>
-            <li>Item4</li>
-          </ul>
+          <button onClick={onClick}>ログアウト</button>
         </MenuList>
       </DropdownContent>
     </Dropdown>
