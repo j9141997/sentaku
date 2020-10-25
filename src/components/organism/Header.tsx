@@ -44,6 +44,11 @@ export const Header: FC<Props> = ({ className }) => {
         {currentUser ? (
           <HeaderColumn>
             <HeaderDropDown onClick={signOut} />
+            <Link href="/articles/new">
+              <LinkPrimaryStyledButton themes={theme}>
+                投稿する
+              </LinkPrimaryStyledButton>
+            </Link>
           </HeaderColumn>
         ) : (
           <HeaderColumn>
@@ -137,5 +142,3 @@ const SecondaryStyledButton = styled(SecondaryButtonAnchor)``
 const LinkPrimaryStyledButton = linkable(PrimaryStyledButton)
 const LinkSecondaryStyledButton = linkable(SecondaryStyledButton)
 const LinkHeaderLogo = linkable(HeaderLogo)
-LinkPrimaryStyledButton.displayName = `ForwardedRefComponent(${PrimaryStyledButton.displayName})`
-LinkSecondaryStyledButton.displayName = `ForwardedRefComponent(${SecondaryStyledButton.displayName})`
