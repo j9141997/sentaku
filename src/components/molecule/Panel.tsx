@@ -19,7 +19,6 @@ export const Panel: FC<Props> = ({ item, ...props }) => {
       <Content themes={theme}>
         <ContentTitle themes={theme}>{item.title}</ContentTitle>
       </Content>
-      <Summary themes={theme}>{item.description}</Summary>
     </Wrapper>
   )
 }
@@ -54,14 +53,14 @@ const ContentTitle = styled.p<{ themes: Theme }>`
   }}
 `
 
-const Summary = styled.div<{ themes: Theme }>`
-  ${({ themes }) => {
-    const { size, frame } = themes
+// const Summary = styled.div<{ themes: Theme }>`
+//   ${({ themes }) => {
+//     const { size, frame } = themes
 
-    return css`
-      height: 80px;
-      background: #f9f9f9;
-      padding: ${size.pxToRem(size.space.XXS)} ${size.pxToRem(size.space.XS)};
-    `
-  }}
-`
+//     return css`
+//       height: 80px;
+//       background: #f9f9f9;
+//       padding: ${size.pxToRem(size.space.XXS)} ${size.pxToRem(size.space.XS)};
+//     `
+//   }}
+// `

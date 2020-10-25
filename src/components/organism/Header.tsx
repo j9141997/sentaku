@@ -43,7 +43,7 @@ export const Header: FC<Props> = ({ className }) => {
         </HeaderColumn>
         {currentUser ? (
           <HeaderColumn>
-            <HeaderDropDown />
+            <HeaderDropDown onClick={signOut} />
           </HeaderColumn>
         ) : (
           <HeaderColumn>
