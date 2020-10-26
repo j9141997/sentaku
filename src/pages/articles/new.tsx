@@ -5,11 +5,13 @@ import Container from '@components/template/Template'
 
 import { useAuth } from 'src/hooks/useAuth'
 
+import { ArticleForm } from '@components/organism/ArticleForm'
+
 const NewPage: FC = () => {
   const { currentUser } = useAuth()
 
   useEffect(() => {
-    isNotLogin()
+    // isNotLogin()
   })
 
   const isNotLogin = useCallback(() => {
@@ -18,7 +20,9 @@ const NewPage: FC = () => {
 
   return (
     <Layout>
-      <Container></Container>
+      <Container>
+        <ArticleForm />
+      </Container>
     </Layout>
   )
 }
