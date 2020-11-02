@@ -1,10 +1,13 @@
 import React, { FC } from 'react'
+import styled, { css } from 'styled-components'
 
 export const ArticleForm: FC = () => {
   return (
-    <div>
+    <Wrapper>
       <input type="text" name="title" />
       <button type="submit">投稿する</button>
-    </div>
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.div``
