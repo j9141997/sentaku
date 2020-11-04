@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 export const ArticleForm: FC = () => {
   return (
     <Wrapper>
-      <input type="text" name="title" />
+      <button>追加する</button>
       <button type="submit">投稿する</button>
     </Wrapper>
   )
