@@ -5,7 +5,7 @@ import Container from '@components/template/Template'
 
 import { useAuth } from 'src/hooks/useAuth'
 
-import { ArticleForm } from '@components/organism/ArticleForm'
+import { ArticleForm } from '@components/organism/presentational/ArticleForm'
 
 const NewPage: FC = () => {
   const { currentUser } = useAuth()

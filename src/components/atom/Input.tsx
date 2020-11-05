@@ -1,9 +1,11 @@
-import React, { FC, InputHTMLAttributes } from 'react'
+import React, { FC, InputHTMLAttributes, ChangeEvent } from 'react'
 import styled, { css } from 'styled-components'
 
 import { Theme, useTheme } from 'src/hooks/useTheme'
 
-export type Props = InputHTMLAttributes<HTMLInputElement> & {}
+export type Props = InputHTMLAttributes<HTMLInputElement> & {
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
+}
 
 export const Input: FC<Props> = (props) => {
   const theme = useTheme()
