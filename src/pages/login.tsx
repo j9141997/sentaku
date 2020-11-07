@@ -1,4 +1,5 @@
-import React, { FC, useEffect, useCallback } from 'react'
+import React, { useEffect, useCallback } from 'react'
+import { NextPage } from 'next'
 import Router from 'next/router'
 import Layout from '../components/Layout'
 import AuthContainer from '@components/template/AuthTemplate'
@@ -6,7 +7,7 @@ import AuthContainer from '@components/template/AuthTemplate'
 import { GoogleAuthButton } from '@components/atom/GoogleAuthButton'
 import { useAuth } from 'src/hooks/useAuth'
 import firebase from '../../utils/firebase'
-const LoginPage: FC = () => {
+const LoginPage: NextPage = () => {
   const { currentUser } = useAuth()
 
   useEffect(() => {
