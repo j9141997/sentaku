@@ -1,4 +1,5 @@
-import React, { FC, useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
+import { NextPage } from 'next'
 import Router from 'next/router'
 
 import Layout from '@components/Layout'
@@ -13,7 +14,7 @@ type Params = {
   password: string
 }
 
-const SignUpPage: FC = () => {
+const SignUpPage: NextPage = () => {
   const [params, setParams] = useState<Params>({ email: '', password: '' })
   const { currentUser } = useAuth()
 
