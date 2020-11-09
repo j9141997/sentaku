@@ -3,6 +3,7 @@ import { AppProps } from 'next/app'
 import { createGlobalStyle } from 'styled-components'
 import reset from 'styled-reset'
 
+import Layout from '@components/Layout'
 import { AuthProvider } from '../auths/AuthProvider'
 
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
@@ -17,7 +18,9 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
     <React.Fragment>
       <GlocalStyle />
       <AuthProvider>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </AuthProvider>
     </React.Fragment>
   )
