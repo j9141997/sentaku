@@ -4,17 +4,28 @@ import styled, { css } from 'styled-components'
 import { Theme, useTheme } from 'src/hooks/useTheme'
 
 export type Props = InputHTMLAttributes<HTMLInputElement> & {
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
+  onValueChange?: (e: ChangeEvent<HTMLInputElement>) => void
   className?: string
   type?: 'text' | 'url' | 'email' | 'password' | 'number'
+  error?: boolean
   readonly value?: string
 }
 
-export const Input: FC<Props> = ({ value = '', className = '', ...props }) => {
+export const Input: FC<Props> = ({
+  value = '',
+  className = '',
+  onValueChange,
+  ...props
+}) => {
   const theme = useTheme()
   return (
-    <Wrapper themes={theme} className={className}>
-      <StyledInput themes={theme} defaultValue={value} {...props} />
+    <Wrapper themes={theme} className={className} width={props.width || 'auto'}>
+      <StyledInput
+        themes={theme}
+        defaultValue={value}
+        onChange={onValueChange}
+        {...props}
+      />
     </Wrapper>
   )
 }
@@ -23,7 +34,7 @@ const Wrapper = styled.span<{
   themes: Theme
   width?: number | string
 }>`
-  ${({ themes, width = 'auto' }) => {
+  ${({ themes, width }) => {
     const { palette, size, frame } = themes
     return css`
       display: inline-flex;

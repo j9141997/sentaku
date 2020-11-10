@@ -1,9 +1,9 @@
 import React, {
   useEffect,
   useCallback,
-  MouseEvent,
   useReducer,
   Reducer,
+  ComponentProps,
 } from 'react'
 import { NextPage } from 'next'
 import Router from 'next/router'
@@ -22,11 +22,17 @@ type Action = {
 
 enum ActionType {
   ADD_ROW = 'ADD_ROW',
+  OPTIONS_VALUE_CHANGE = 'OPTIONS_VALUE_CHANGE',
 }
 
 const reducer: Reducer<State, Action> = (state: State, action: Action) => {
   switch (action.type) {
     case ActionType.ADD_ROW:
+      return {
+        ...state,
+        options: action.payload.options,
+      }
+    case ActionType.OPTIONS_VALUE_CHANGE:
       return {
         ...state,
         options: action.payload.options,
@@ -47,8 +53,10 @@ const NewPage: NextPage = () => {
     !currentUser && Router.push('/login')
   }, [currentUser])
 
-  const handleAddRow = useCallback(
-    (e: MouseEvent<HTMLButtonElement>): void => {
+  const handleAddRow: ComponentProps<
+    typeof ArticleForm
+  >['onClickAddRow'] = useCallback(
+    (e) => {
       e.stopPropagation()
       const newOption = 'new value'
       dispatch({
@@ -59,9 +67,27 @@ const NewPage: NextPage = () => {
     [dispatch, state]
   )
 
+  const handleValueChange: ComponentProps<
+    typeof ArticleForm
+  >['onValueChange'] = useCallback(
+    (e, i) => {
+      const values = state.options.slice()
+      values[i] = e.target.value
+      dispatch({
+        type: ActionType.OPTIONS_VALUE_CHANGE,
+        payload: { ...state, options: [...values] },
+      })
+    },
+    [dispatch, state]
+  )
+
   return (
     <Container>
-      <ArticleForm onClickAddRow={handleAddRow} options={state.options} />
+      <ArticleForm
+        onClickAddRow={handleAddRow}
+        onValueChange={handleValueChange}
+        options={state.options}
+      />
     </Container>
   )
 }
