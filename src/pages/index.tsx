@@ -6,11 +6,9 @@ import { PanelList } from '@components/organism/PanelList'
 
 const IndexPage: NextPage = () => {
   return (
-    <Layout>
-      <Container>
-        <PanelList />
-      </Container>
-    </Layout>
+    <Container>
+      <PanelList />
+    </Container>
   )
 }
 export default IndexPage
