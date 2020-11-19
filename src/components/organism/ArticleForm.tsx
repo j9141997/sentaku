@@ -1,8 +1,8 @@
-import React, { FC, MouseEvent, ChangeEvent, createRef } from 'react'
+import React, { FC, MouseEvent, ChangeEvent, useRef } from 'react'
 import styled, { css } from 'styled-components'
 import { FieldSet } from '@components/molecule/FieldSet'
 import { TitleInput } from '@components/atom/TitleInput'
-import { Input } from '@components/atom/Input'
+import { PrimaryButton } from '@components/atom/PrimaryButton'
 
 export type Props = {
   options?: string[]
@@ -15,10 +15,9 @@ export const ArticleForm: FC<Props> = ({
   onClickAddRow,
   onValueChange,
 }) => {
-  const titleRef = createRef<HTMLInputElement>()
   return (
     <Wrapper>
-      <TitleInput ref={titleRef} placeholder="Title" />
+      <TitleInput placeholder="Title" />
       {options.map((value, i) => (
         <FieldSet
           key={`fieldSet${i + 1}`}
@@ -27,7 +26,9 @@ export const ArticleForm: FC<Props> = ({
           onValueChange={(e) => onValueChange(e, i)}
         />
       ))}
-      <button onClick={onClickAddRow}>追加する</button>
+      <PrimaryButton size="s" onClick={onClickAddRow}>
+        追加する
+      </PrimaryButton>
       <button type="submit">投稿する</button>
     </Wrapper>
   )
