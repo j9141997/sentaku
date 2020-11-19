@@ -1,8 +1,10 @@
 import React, { FC, MouseEvent, ChangeEvent, useRef } from 'react'
 import styled, { css } from 'styled-components'
 import { FieldSet } from '@components/molecule/FieldSet'
+import { Panel } from '@components/molecule/Panel'
 import { TitleInput } from '@components/atom/TitleInput'
 import { PrimaryButton } from '@components/atom/PrimaryButton'
+import { Icon } from '@components/atom/Icon'
 
 export type Props = {
   options?: string[]
@@ -18,18 +20,21 @@ export const ArticleForm: FC<Props> = ({
   return (
     <Wrapper>
       <TitleInput placeholder="Title" />
-      {options.map((value, i) => (
-        <FieldSet
-          key={`fieldSet${i + 1}`}
-          label={`オプション${i + 1}`}
-          value={value}
-          onValueChange={(e) => onValueChange(e, i)}
-        />
-      ))}
+      <Panel>
+        {options.map((value, i) => (
+          <FieldSet
+            key={`fieldSet${i + 1}`}
+            label={`オプション${i + 1}`}
+            value={value}
+            onValueChange={(e) => onValueChange(e, i)}
+          />
+        ))}
+      </Panel>
       <PrimaryButton size="s" onClick={onClickAddRow}>
         追加する
+        <Icon name="MdAddCircleOutline" />
       </PrimaryButton>
-      <button type="submit">投稿する</button>
+      {/* <button type="submit">投稿する</button> */}
     </Wrapper>
   )
 }
