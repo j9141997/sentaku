@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import styled, { css } from 'styled-components'
 
 import { Theme, useTheme } from '../../hooks/useTheme'
-import { Panel } from '@components/molecule/Panel'
+import { ContentPanel } from '@components/molecule/ContentPanel'
 type Props = {}
 
 export const PanelList: FC<Props> = () => {
@@ -43,7 +43,7 @@ const Wrapper = styled.div<{ themes: Theme }>`
   }}
 `
 
-const StyledPanel = styled(Panel)<{ themes: Theme }>`
+const StyledPanel = styled(ContentPanel)<{ themes: Theme }>`
   ${({ themes }) => {
     const { size } = themes
 
