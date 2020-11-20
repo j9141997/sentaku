@@ -5,9 +5,10 @@ import { useTheme, Theme } from '../../hooks/useTheme'
 export type Props = InputHTMLAttributes<HTMLInputElement> & {
   onValueChange?: (e: ChangeEvent<HTMLInputElement>) => void
   error?: boolean
+  placeholder?: string
 }
 
-export const TitleInput = memo(({ ...props }) => {
+export const TitleInput = memo(({ ...props }: Props) => {
   const theme = useTheme()
   return <StyledInput themes={theme} {...props} />
 })

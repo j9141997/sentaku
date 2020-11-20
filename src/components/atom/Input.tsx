@@ -35,7 +35,7 @@ const Wrapper = styled.span<{
   width?: number | string
 }>`
   ${({ themes, width }) => {
-    const { palette, size, frame } = themes
+    const { size, frame } = themes
     return css`
       display: inline-flex;
       align-items: stretch;
