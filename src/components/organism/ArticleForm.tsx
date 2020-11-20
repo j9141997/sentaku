@@ -1,5 +1,5 @@
-import React, { FC, MouseEvent, ChangeEvent, useRef } from 'react'
-import styled, { css } from 'styled-components'
+import React, { FC, MouseEvent, ChangeEvent } from 'react'
+import styled from 'styled-components'
 import { FieldSet } from '@components/molecule/FieldSet'
 import { Panel } from '@components/molecule/Panel'
 import { TitleInput } from '@components/atom/TitleInput'
@@ -17,7 +17,6 @@ export const ArticleForm: FC<Props> = ({
   onClickAddRow,
   onValueChange,
 }) => {
-  const inputRefs = useRef<HTMLInputElement[]>([])
   return (
     <Wrapper>
       <TitleInput placeholder="Title" />
@@ -26,7 +25,6 @@ export const ArticleForm: FC<Props> = ({
           <FieldSet
             key={`fieldSet${i + 1}`}
             label={`オプション#${i + 1}`}
-            ref={inputRefs[i]}
             onValueChange={(e) => onValueChange(e, i)}
           />
         ))}
