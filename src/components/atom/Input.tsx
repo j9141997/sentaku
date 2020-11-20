@@ -1,4 +1,4 @@
-import React, { FC, InputHTMLAttributes, ChangeEvent } from 'react'
+import React, { memo, InputHTMLAttributes, ChangeEvent } from 'react'
 import styled, { css } from 'styled-components'
 
 import { Theme, useTheme } from 'src/hooks/useTheme'
@@ -8,27 +8,27 @@ export type Props = InputHTMLAttributes<HTMLInputElement> & {
   className?: string
   type?: 'text' | 'url' | 'email' | 'password' | 'number'
   error?: boolean
-  readonly value?: string
 }
 
-export const Input: FC<Props> = ({
-  value = '',
-  className = '',
-  onValueChange,
-  ...props
-}) => {
-  const theme = useTheme()
-  return (
-    <Wrapper themes={theme} className={className} width={props.width || 'auto'}>
-      <StyledInput
+export const Input = memo(
+  ({ value = '', className = '', onValueChange, ...props }: Props) => {
+    const theme = useTheme()
+    return (
+      <Wrapper
         themes={theme}
-        defaultValue={value}
-        onChange={onValueChange}
-        {...props}
-      />
-    </Wrapper>
-  )
-}
+        className={className}
+        width={props.width || 'auto'}
+      >
+        <StyledInput
+          themes={theme}
+          defaultValue={value}
+          onChange={onValueChange}
+          {...props}
+        />
+      </Wrapper>
+    )
+  }
+)
 
 const Wrapper = styled.span<{
   themes: Theme

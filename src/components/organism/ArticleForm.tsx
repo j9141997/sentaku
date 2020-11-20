@@ -17,6 +17,7 @@ export const ArticleForm: FC<Props> = ({
   onClickAddRow,
   onValueChange,
 }) => {
+  const inputRefs = useRef<HTMLInputElement[]>([])
   return (
     <Wrapper>
       <TitleInput placeholder="Title" />
@@ -24,8 +25,8 @@ export const ArticleForm: FC<Props> = ({
         {options.map((value, i) => (
           <FieldSet
             key={`fieldSet${i + 1}`}
-            label={`オプション${i + 1}`}
-            value={value}
+            label={`オプション#${i + 1}`}
+            ref={inputRefs[i]}
             onValueChange={(e) => onValueChange(e, i)}
           />
         ))}

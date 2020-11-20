@@ -1,4 +1,4 @@
-import React, { FC, InputHTMLAttributes, ChangeEvent } from 'react'
+import React, { memo, InputHTMLAttributes, ChangeEvent } from 'react'
 import styled, { css } from 'styled-components'
 import { useTheme, Theme } from '../../hooks/useTheme'
 
@@ -7,20 +7,10 @@ export type Props = InputHTMLAttributes<HTMLInputElement> & {
   error?: boolean
 }
 
-// for forwardref component
-// export const TitleInput = forwardRef<HTMLInputElement, Props>(
-//   ({ className = '', ...props }, ref) => {
-//     const theme = useTheme()
-//     return (
-//       <StyledInput ref={ref} className={className} themes={theme} {...props} />
-//     )
-//   }
-// )
-
-export const TitleInput: FC<Props> = ({ ...props }) => {
+export const TitleInput = memo(({ ...props }) => {
   const theme = useTheme()
   return <StyledInput themes={theme} {...props} />
-}
+})
 
 const StyledInput = styled.input<{ themes: Theme }>(({ themes }) => {
   const { size } = themes
