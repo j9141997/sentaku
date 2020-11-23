@@ -1,7 +1,6 @@
 import React, { useEffect, useCallback } from 'react'
 import { NextPage } from 'next'
 import Router from 'next/router'
-import Layout from '../components/Layout'
 import AuthContainer from '@components/template/AuthTemplate'
 
 import { GoogleAuthButton } from '@components/atom/GoogleAuthButton'
@@ -23,13 +22,11 @@ const LoginPage: NextPage = () => {
     firebase.auth().signInWithRedirect(provider)
   }
   return (
-    <Layout>
-      <AuthContainer>
-        <GoogleAuthButton onClick={loginByGoogleAuth}>
-          Googleでログインする
-        </GoogleAuthButton>
-      </AuthContainer>
-    </Layout>
+    <AuthContainer>
+      <GoogleAuthButton onClick={loginByGoogleAuth}>
+        Googleでログインする
+      </GoogleAuthButton>
+    </AuthContainer>
   )
 }
 
