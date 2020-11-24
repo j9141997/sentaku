@@ -2,7 +2,7 @@ import { merge } from 'lodash'
 import { darken, rgba, transparentize } from 'polished'
 
 export type PaletteProps = {
-  TEXT_BLACK?: string
+  TEXT?: string
   TEXT_DISABLED?: string
   TEXT_LINK?: string
   BORDER?: string
@@ -15,7 +15,7 @@ export type PaletteProps = {
 export type CreatedPaletteTheme = {
   hoverColor: (value: string) => string
   disableColor: (value: string) => string
-  TEXT_BLACK: string
+  TEXT: string
   TEXT_DISABLED: string
   TEXT_LINK: string
   BORDER: string
@@ -27,7 +27,7 @@ export type CreatedPaletteTheme = {
 }
 
 export const defaultPalette = {
-  TEXT_BLACK: 'rgba(0, 0, 0, 0.87)',
+  TEXT: 'rgba(0, 0, 0, 0.87)',
   TEXT_DISABLED: '#c1c1c1',
   TEXT_LINK: '#007bc2',
   BORDER: '#8e8e93',
@@ -35,6 +35,15 @@ export const defaultPalette = {
   MAIN: '#2b2b2b',
   SUB: '#6b9e7c',
   DANGER: '#ff8800',
+}
+
+export const darkPalette = {
+  ...defaultPalette,
+  TEXT: '#fff',
+  BORDER: 'rgb(136, 136, 136',
+  BACKGROUND: '#111',
+  MAIN: '#fff',
+  SUB: '#888',
 }
 
 export const createPalette = (

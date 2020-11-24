@@ -116,7 +116,7 @@ const HeaderLogo = styled.button<{ themes: Theme }>`
       background: none;
       box-sizing: border-box;
       cursor: pointer;
-      color: ${palette.TEXT_BLACK};
+      color: ${palette.TEXT};
 
       &:hover {
         opacity: 0.7;

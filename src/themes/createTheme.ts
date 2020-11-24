@@ -2,6 +2,7 @@ import {
   PaletteProps,
   CreatedPaletteTheme,
   createPalette,
+  darkPalette,
 } from './createPalette'
 import { CreatedFrameTheme, FrameProps, createFrame } from './createFrame'
 import { CreatedSizeTheme, SizeProps, createSize } from './createSize'
@@ -16,6 +17,12 @@ export type CreatedTheme = {
   palette: CreatedPaletteTheme
   size: CreatedSizeTheme
   frame: CreatedFrameTheme
+}
+
+export const themeModeOptions = {
+  dark: {
+    palette: darkPalette,
+  },
 }
 
 export const createTheme = (theme: ThemeProps = {}): CreatedTheme => {
