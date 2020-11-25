@@ -17,8 +17,10 @@ import { useThemeMode } from 'src/hooks/useTheme'
 nprogress.configure({ showSpinner: false, speed: 400, minimum: 0.25 })
 
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
-  const [themeMode] = useThemeMode()
+  const [themeMode, toggleTheme] = useThemeMode()
   const theme = createTheme(themeModeOptions[themeMode])
+  console.log(theme)
+  console.log(themeMode)
 
   if (process.browser) {
     nprogress.start()
@@ -41,8 +43,9 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
       <GlocalStyle />
       <AuthProvider>
         <ThemeProvider theme={theme}>
-          <Layout>
+          <Layout onClickThemeMode={toggleTheme}>
             <Component {...pageProps} />
+            <button onClick={toggleTheme}>ダーク</button>
           </Layout>
         </ThemeProvider>
       </AuthProvider>

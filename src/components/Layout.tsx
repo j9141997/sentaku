@@ -9,11 +9,13 @@ import { Footer } from '@components/organism/Footer'
 type Props = {
   children?: ReactNode
   title?: string
+  onClickThemeMode: () => void
 }
 
 const Layout: FC<Props> = ({
   children,
   title = 'sentaku ーー人生の選択肢を幅広く。',
+  onClickThemeMode,
 }) => {
   const theme = useTheme()
   return (
@@ -24,6 +26,7 @@ const Layout: FC<Props> = ({
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Header />
+      <button onClick={onClickThemeMode}>yoshida</button>
       <Main themes={theme}>{children}</Main>
       <Footer />
     </div>
