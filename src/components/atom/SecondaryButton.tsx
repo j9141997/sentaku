@@ -23,7 +23,7 @@ const SecondaryStyle = css`
     const { palette } = themes
 
     return css`
-      color: ${palette.TEXT_BLACK};
+      color: ${palette.TEXT};
       border: 1px solid;
       background-color: #fff;
       border-color: ${palette.MAIN};

@@ -34,7 +34,7 @@ export const defaultFrame: CreatedFrameTheme = {
   border: {
     lineWidth,
     lineStyle,
-    default: `${lineWidth} $l{lineStyle} ${lineColor}`,
+    default: `${lineWidth} ${lineStyle} ${lineColor}`,
     radius: {
       s: '4px',
       m: '6px',

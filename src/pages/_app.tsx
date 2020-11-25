@@ -6,15 +6,22 @@ import nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 import Layout from '@components/Layout'
-import { AuthProvider } from '../auths/AuthProvider'
+import { AuthProvider, ThemeProvider } from 'src/deps/Providers'
+import { createTheme, themeModeOptions } from 'src/themes/createTheme'
+import { useThemeMode } from 'src/hooks/useTheme'
 
 // nprogressの設定
-//    showSpinner: バーと一緒にローディングスピナーを表示するかどうか
-//    speed: バーが右端に到達し消えるまでの時間 (msec)
-//    minimum: バーの開始地点
+//  showSpinner: バーと一緒にローディングスピナーを表示するかどうか
+//  speed: バーが右端に到達し消えるまでの時間 (msec)
+//  minimum: バーの開始地点
 nprogress.configure({ showSpinner: false, speed: 400, minimum: 0.25 })
 
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
+  const [themeMode, toggleTheme] = useThemeMode()
+  const theme = createTheme(themeModeOptions[themeMode])
+  console.log(theme)
+  console.log(themeMode)
+
   if (process.browser) {
     nprogress.start()
   }
@@ -35,9 +42,12 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
     <React.Fragment>
       <GlocalStyle />
       <AuthProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <ThemeProvider theme={theme}>
+          <Layout onClickThemeMode={toggleTheme}>
+            <Component {...pageProps} />
+            <button onClick={toggleTheme}>ダーク</button>
+          </Layout>
+        </ThemeProvider>
       </AuthProvider>
     </React.Fragment>
   )

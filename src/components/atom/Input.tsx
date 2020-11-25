@@ -60,7 +60,7 @@ const StyledInput = styled.input<{ themes: Theme }>(({ themes }) => {
     border: none;
     background: transparent;
     font-size: ${size.pxToRem(size.font.TALL)};
-    color: ${palette.TEXT_BLACK};
+    color: ${palette.TEXT};
     line-height: 1.6;
     outline: none;
   `
