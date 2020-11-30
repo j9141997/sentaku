@@ -19,8 +19,6 @@ nprogress.configure({ showSpinner: false, speed: 400, minimum: 0.25 })
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   const [themeMode, toggleTheme] = useThemeMode()
   const theme = createTheme(themeModeOptions[themeMode])
-  console.log(theme)
-  console.log(themeMode)
 
   if (process.browser) {
     nprogress.start()
@@ -35,6 +33,8 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
     ${reset}
 
     body {
+      background: ${theme.palette.BACKGROUND};
+      color: ${theme.palette.TEXT};
       font-family: 'Roboto', 'Noto Sans JP', sans-serif;
     }
   `
@@ -45,7 +45,6 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
         <ThemeProvider theme={theme}>
           <Layout onClickThemeMode={toggleTheme}>
             <Component {...pageProps} />
-            <button onClick={toggleTheme}>ダーク</button>
           </Layout>
         </ThemeProvider>
       </AuthProvider>
