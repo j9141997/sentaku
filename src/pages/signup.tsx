@@ -37,14 +37,12 @@ const SignUpPage: NextPage = () => {
     }
   }
   return (
-    <Layout>
-      <AuthContainer>
-        <Title>Find Your Piece Of Life Option</Title>
-        <GoogleAuthButton onClick={signInByGoogleAuth}>
-          Googleで登録する
-        </GoogleAuthButton>
-      </AuthContainer>
-    </Layout>
+    <AuthContainer>
+      <Title>Find Your Piece Of Life Option</Title>
+      <GoogleAuthButton onClick={signInByGoogleAuth}>
+        Googleで登録する
+      </GoogleAuthButton>
+    </AuthContainer>
   )
 }
 
