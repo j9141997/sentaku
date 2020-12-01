@@ -30,20 +30,20 @@ export const defaultPalette = {
   TEXT: 'rgba(0, 0, 0, 0.87)',
   TEXT_DISABLED: '#c1c1c1',
   TEXT_LINK: '#007bc2',
-  BORDER: '#8e8e93',
+  BORDER: '#eaeaea',
   BACKGROUND: '#fff',
-  MAIN: '#2b2b2b',
-  SUB: '#6b9e7c',
+  MAIN: '#111',
+  SUB: '#fff',
   DANGER: '#ff8800',
 }
 
 export const darkPalette = {
   ...defaultPalette,
   TEXT: '#fff',
-  BORDER: 'rgb(136, 136, 136',
+  BORDER: '#333',
   BACKGROUND: '#111',
   MAIN: '#fff',
-  SUB: '#888',
+  SUB: '#111',
 }
 
 export const createPalette = (

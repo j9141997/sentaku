@@ -70,13 +70,13 @@ export const Header: FC<Props> = ({ className }) => {
 
 const Wrapper = styled.header<{ themes: Theme }>`
   ${({ themes }) => {
-    const { size } = themes
+    const { size, palette } = themes
     const { PC } = themes.size.mediaQuery
 
     return css`
       height: 56px;
       padding: 0 ${size.pxToRem(size.space.XS)};
-      border-bottom: 1px solid #f9f9f9;
+      border-bottom: 1px solid ${palette.BORDER};
 
       @media (min-width: ${PC}px) {
         height: 72px;

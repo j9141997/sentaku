@@ -24,9 +24,9 @@ const SecondaryStyle = css`
 
     return css`
       color: ${palette.TEXT};
+      background-color: ${palette.SUB};
       border: 1px solid;
-      background-color: #fff;
-      border-color: ${palette.MAIN};
+      border-color: ${palette.BORDER};
       &.hover {
         background-color: ${palette.hoverColor(palette.MAIN)};
       }
