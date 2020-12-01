@@ -23,10 +23,9 @@ const primaryStyle = css`
     const { palette } = themes
 
     return css`
-      color: #fff;
+      color: ${palette.SUB};
       border: none;
       background-color: ${palette.MAIN};
-      color: #fff;
 
       &.hover {
         background-color: ${palette.hoverColor(palette.MAIN)};

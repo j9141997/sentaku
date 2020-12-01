@@ -31,7 +31,7 @@ const Wrapper = styled.div`
 `
 const Content = styled.div<{ themes: Theme }>`
   ${({ themes }) => {
-    const { palette, frame } = themes
+    const { palette } = themes
     return css`
       display: flex;
       justify-content: center;
@@ -45,22 +45,11 @@ const Content = styled.div<{ themes: Theme }>`
 
 const ContentTitle = styled.p<{ themes: Theme }>`
   ${({ themes }) => {
-    const { size } = themes
+    const { size, palette } = themes
 
     return css`
       font-size: ${size.pxToRem(size.font.GRANDE)};
+      color: ${palette.SUB};
     `
   }}
 `
-
-// const Summary = styled.div<{ themes: Theme }>`
-//   ${({ themes }) => {
-//     const { size, frame } = themes
-
-//     return css`
-//       height: 80px;
-//       background: #f9f9f9;
-//       padding: ${size.pxToRem(size.space.XXS)} ${size.pxToRem(size.space.XS)};
-//     `
-//   }}
-// `
