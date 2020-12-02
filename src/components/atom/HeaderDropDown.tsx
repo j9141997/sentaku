@@ -8,12 +8,14 @@ import {
   DropdownTrigger,
   DropdownContent,
 } from '@components/dropdown/index'
+import { Icon } from '@components/atom/Icon'
 
 type Props = {
   onClick?: () => void
+  onClickThemeMode: () => void
 }
 
-export const HeaderDropDown: FC<Props> = ({ onClick }) => {
+export const HeaderDropDown: FC<Props> = ({ onClick, onClickThemeMode }) => {
   const { currentUser } = useAuth()
   const theme = useTheme()
 
@@ -22,13 +24,18 @@ export const HeaderDropDown: FC<Props> = ({ onClick }) => {
       <DropdownTrigger>
         <TriggerButton themes={theme}>
           <span className="trigger">{currentUser.displayName}</span>
-          <i className="material-icons">arrow_drop_down</i>
+          <Icon name="MdArrowDropDown" size={16} />
         </TriggerButton>
       </DropdownTrigger>
 
       <DropdownContent>
         <MenuList themes={theme}>
-          <button onClick={onClick}>ログアウト</button>
+          <MenuListItem themes={theme}>
+            <button onClick={onClick}>ログアウト</button>
+          </MenuListItem>
+          <MenuListItem themes={theme}>
+            <button onClick={onClickThemeMode}>チェーんじ</button>
+          </MenuListItem>
         </MenuList>
       </DropdownContent>
     </Dropdown>
@@ -37,9 +44,10 @@ export const HeaderDropDown: FC<Props> = ({ onClick }) => {
 
 const TriggerButton = styled.button<{ themes: Theme }>`
   ${({ themes }) => {
-    const { size } = themes
+    const { size, palette } = themes
 
     return css`
+      color: ${palette.TEXT};
       display: flex;
       align-items: center;
       background: none;
@@ -52,10 +60,17 @@ const TriggerButton = styled.button<{ themes: Theme }>`
 
 const MenuList = styled.div<{ themes: Theme }>`
   ${({ themes }) => {
-    const { size, frame } = themes
+    const { size, frame, palette } = themes
 
     return css`
-      border: ${frame.border.default};
+      padding: ${size.pxToRem(size.space.XXS)} 0;
     `
   }}
 `
+
+const MenuListItem = styled.div<{ themes: Theme }>(({ themes }) => {
+  const { size } = themes
+  return css`
+    padding: 0 ${size.pxToRem(size.space.XS)};
+  `
+})

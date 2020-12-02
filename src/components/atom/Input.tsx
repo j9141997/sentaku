@@ -35,13 +35,13 @@ const Wrapper = styled.span<{
   width?: number | string
 }>`
   ${({ themes, width }) => {
-    const { size, frame } = themes
+    const { size, frame, palette } = themes
     return css`
       display: inline-flex;
       align-items: stretch;
       width: ${typeof width === 'number' ? `${width}px` : width};
       padding: 0 ${size.pxToRem(size.space.XXS)};
-      background-color: #fff;
+      background-color: ${palette.BACKGROUND};
       border-radius: ${frame.border.radius.m};
       border: ${frame.border.default};
       cursor: text;
