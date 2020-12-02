@@ -14,8 +14,10 @@ export const TitleInput = memo(({ ...props }: Props) => {
 })
 
 const StyledInput = styled.input<{ themes: Theme }>(({ themes }) => {
-  const { size } = themes
+  const { size, palette } = themes
   return css`
+    background: inherit;
+    caret-color: ${palette.TEXT};
     font-size: ${size.pxToRem(size.font.VENTI)};
     width: 100%;
     height: 56px;

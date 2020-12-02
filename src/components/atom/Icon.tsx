@@ -1,5 +1,5 @@
 import React from 'react'
-import { MdAddCircleOutline } from 'react-icons/md'
+import { MdAddCircleOutline, MdArrowDropDown } from 'react-icons/md'
 
 export type IconProps = {
   name: string
@@ -10,6 +10,7 @@ export type IconProps = {
 
 export const iconMap = {
   MdAddCircleOutline: MdAddCircleOutline,
+  MdArrowDropDown: MdArrowDropDown,
 }
 
 export const Icon: React.FC<IconProps> = ({

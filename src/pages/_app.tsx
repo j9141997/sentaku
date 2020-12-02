@@ -17,7 +17,7 @@ import { useThemeMode } from 'src/hooks/useTheme'
 nprogress.configure({ showSpinner: false, speed: 400, minimum: 0.25 })
 
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
-  const [themeMode, toggleTheme] = useThemeMode()
+  const [themeMode, toggleTheme, componentMounted] = useThemeMode()
   const theme = createTheme(themeModeOptions[themeMode])
 
   if (process.browser) {
@@ -38,6 +38,11 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
       font-family: 'Roboto', 'Noto Sans JP', sans-serif;
     }
   `
+
+  if (!componentMounted) {
+    return <div />
+  }
+
   return (
     <React.Fragment>
       <GlocalStyle />
