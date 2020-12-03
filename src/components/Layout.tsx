@@ -10,12 +10,14 @@ type Props = {
   children?: ReactNode
   title?: string
   onClickThemeMode: () => void
+  themeMode?: string
 }
 
 const Layout: FC<Props> = ({
   children,
   title = 'sentaku ーー人生の選択肢を幅広く。',
   onClickThemeMode,
+  themeMode = 'default',
 }) => {
   const theme = useTheme()
   return (
@@ -25,7 +27,7 @@ const Layout: FC<Props> = ({
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Header onClickThemeMode={onClickThemeMode} />
+      <Header onClickThemeMode={onClickThemeMode} themeMode={themeMode} />
       <Main themes={theme}>{children}</Main>
       <Footer />
     </div>
