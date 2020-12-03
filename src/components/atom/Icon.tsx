@@ -1,4 +1,6 @@
 import React from 'react'
+import { IoIosMoon } from 'react-icons/io'
+import { WiDaySunny } from 'react-icons/wi'
 import { MdAddCircleOutline, MdArrowDropDown } from 'react-icons/md'
 
 export type IconProps = {
@@ -11,6 +13,8 @@ export type IconProps = {
 export const iconMap = {
   MdAddCircleOutline: MdAddCircleOutline,
   MdArrowDropDown: MdArrowDropDown,
+  WiDaySunny: WiDaySunny,
+  IoIosMoon: IoIosMoon,
 }
 
 export const Icon: React.FC<IconProps> = ({

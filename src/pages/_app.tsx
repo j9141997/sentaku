@@ -48,7 +48,7 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
       <GlocalStyle />
       <AuthProvider>
         <ThemeProvider theme={theme}>
-          <Layout onClickThemeMode={toggleTheme}>
+          <Layout onClickThemeMode={toggleTheme} themeMode={themeMode}>
             <Component {...pageProps} />
           </Layout>
         </ThemeProvider>

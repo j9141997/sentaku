@@ -15,9 +15,14 @@ import { SecondaryButtonAnchor } from '@components/atom/SecondaryButton'
 type Props = {
   className?: string
   onClickThemeMode: () => void
+  themeMode?: string
 }
 
-export const Header: FC<Props> = ({ className, onClickThemeMode }) => {
+export const Header: FC<Props> = ({
+  className,
+  onClickThemeMode,
+  themeMode = 'default',
+}) => {
   const signOut = () => {
     firebase
       .auth()
@@ -48,6 +53,7 @@ export const Header: FC<Props> = ({ className, onClickThemeMode }) => {
             <HeaderDropDown
               onClick={signOut}
               onClickThemeMode={onClickThemeMode}
+              themeMode={themeMode}
             />
             <Link href="/articles/new">
               <LinkPrimaryStyledButton themes={theme}>
