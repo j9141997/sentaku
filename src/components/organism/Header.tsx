@@ -44,7 +44,7 @@ export const Header: FC<Props> = ({
     <Wrapper themes={theme}>
       <HeaderContainer themes={theme}>
         <HeaderColumn>
-          <Link href="/">
+          <Link href={routes.top}>
             <LinkHeaderLogo themes={theme}>{title}</LinkHeaderLogo>
           </Link>
         </HeaderColumn>
@@ -55,7 +55,7 @@ export const Header: FC<Props> = ({
               onClickThemeMode={onClickThemeMode}
               themeMode={themeMode}
             />
-            <Link href="/articles/new">
+            <Link href={routes.articles.new}>
               <LinkPrimaryStyledButton themes={theme}>
                 投稿する
               </LinkPrimaryStyledButton>
@@ -63,10 +63,10 @@ export const Header: FC<Props> = ({
           </HeaderColumn>
         ) : (
           <HeaderColumn>
-            <Link href="/login">
+            <Link href={routes.auth.login}>
               <LinkSecondaryStyledButton>ログイン</LinkSecondaryStyledButton>
             </Link>
-            <Link href="/signup">
+            <Link href={routes.auth.signup}>
               <LinkPrimaryStyledButton themes={theme}>
                 新規登録
               </LinkPrimaryStyledButton>

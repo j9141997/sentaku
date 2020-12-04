@@ -17,14 +17,12 @@ export const Footer: FC = () => {
 
 const Wrapper = styled.footer<{ themes: Theme }>`
   ${({ themes }) => {
-    const { size, palette } = themes
-    const { PC } = themes.size.mediaQuery
+    const { size } = themes
 
     return css`
       padding: 0 ${size.pxToRem(size.space.XS)};
       jutify-content: space-between;
       height: 60px;
-      background: ${palette.MAIN};
     `
   }}
 `

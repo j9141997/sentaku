@@ -8,7 +8,6 @@ type Props = {
 
 export const DropdownTrigger: FC<Props> = ({ children }) => {
   const { active, onClickTrigger } = useContext(DropdownContext)
-  // return <Wrapper onClick={onClickTrigger}>{children}</Wrapper>
   return (
     <Wrapper onClick={onClickTrigger}>
       {React.Children.map(children, (child: any) => {

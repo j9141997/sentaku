@@ -60,11 +60,13 @@ const TriggerButton = styled.button<{ themes: Theme }>`
 
     return css`
       color: ${palette.TEXT};
+      cursor: pointer;
       display: flex;
       align-items: center;
       background: none;
       height: 40px;
       padding: 0 ${size.pxToRem(size.space.XS)};
+      outline: unset;
       border: none;
     `
   }}
