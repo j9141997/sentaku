@@ -72,7 +72,7 @@ const TriggerButton = styled.button<{ themes: Theme }>`
 
 const MenuList = styled.div<{ themes: Theme }>`
   ${({ themes }) => {
-    const { size, frame, palette } = themes
+    const { size } = themes
 
     return css`
       padding: ${size.pxToRem(size.space.XXS)} 0;

@@ -6,7 +6,7 @@ type Props = {
   className?: string
 }
 
-export const DropdownTrigger: FC<Props> = ({ children, className = '' }) => {
+export const DropdownTrigger: FC<Props> = ({ children }) => {
   const { active, onClickTrigger } = useContext(DropdownContext)
   // return <Wrapper onClick={onClickTrigger}>{children}</Wrapper>
   return (
