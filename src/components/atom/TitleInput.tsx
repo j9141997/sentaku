@@ -17,6 +17,7 @@ const StyledInput = styled.input<{ themes: Theme }>(({ themes }) => {
   const { size, palette } = themes
   return css`
     background: inherit;
+    color: ${palette.TEXT};
     caret-color: ${palette.TEXT};
     font-size: ${size.pxToRem(size.font.VENTI)};
     width: 100%;

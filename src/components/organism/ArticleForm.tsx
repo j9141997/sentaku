@@ -20,15 +20,14 @@ export const ArticleForm: FC<Props> = ({
   return (
     <Wrapper>
       <TitleInput placeholder="Title" />
-      <Panel>
-        {options.map((value, i) => (
+      {options.map((value, i) => (
+        <Panel key={`fieldSet${i + 1}`} title={`オプション#${i + 1}`}>
           <FieldSet
-            key={`fieldSet${i + 1}`}
             label={`オプション#${i + 1}`}
             onValueChange={(e) => onValueChange(e, i)}
           />
-        ))}
-      </Panel>
+        </Panel>
+      ))}
       <PrimaryButton size="s" onClick={onClickAddRow}>
         追加する
         <Icon name="MdAddCircleOutline" />
