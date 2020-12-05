@@ -1,4 +1,10 @@
-import React, { memo, InputHTMLAttributes, ChangeEvent } from 'react'
+import React, {
+  useEffect,
+  useRef,
+  memo,
+  InputHTMLAttributes,
+  ChangeEvent,
+} from 'react'
 import styled, { css } from 'styled-components'
 import { useTheme, Theme } from '../../hooks/useTheme'
 
@@ -6,11 +12,20 @@ export type Props = InputHTMLAttributes<HTMLInputElement> & {
   onValueChange?: (e: ChangeEvent<HTMLInputElement>) => void
   error?: boolean
   placeholder?: string
+  autoFocus?: boolean
 }
 
-export const TitleInput = memo(({ ...props }: Props) => {
+export const TitleInput = memo(({ autoFocus, ...props }: Props) => {
+  const innerRef = useRef<HTMLInputElement>(null)
   const theme = useTheme()
-  return <StyledInput themes={theme} {...props} />
+
+  useEffect(() => {
+    if (autoFocus && innerRef.current) {
+      innerRef.current.focus()
+    }
+  }, [autoFocus])
+
+  return <StyledInput themes={theme} ref={innerRef} {...props} />
 })
 
 const StyledInput = styled.input<{ themes: Theme }>(({ themes }) => {

@@ -4,12 +4,13 @@ import { Theme, useTheme } from '../../hooks/useTheme'
 
 type Props = {
   title?: string
+  className?: string
 }
 
-export const Panel: FC<Props> = ({ children, title = '' }) => {
+export const Panel: FC<Props> = ({ children, title = '', className = '' }) => {
   const theme = useTheme()
   return (
-    <Wrapper themes={theme}>
+    <Wrapper className={className} themes={theme}>
       {title && <Title themes={theme}>{title}</Title>}
       {children}
     </Wrapper>
@@ -29,7 +30,7 @@ const Wrapper = styled.div<{ themes: Theme }>(({ themes }) => {
 })
 
 const Title = styled.h4<{ themes: Theme }>(({ themes }) => {
-  const { palette, size } = themes
+  const { size } = themes
   return css`
     font-size: ${size.pxToRem(size.font.GRANDE)};
     font-weight: bold;

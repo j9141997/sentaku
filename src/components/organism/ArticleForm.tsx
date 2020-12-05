@@ -1,5 +1,6 @@
 import React, { FC, MouseEvent, ChangeEvent } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { useTheme, Theme } from 'src/hooks/useTheme'
 import { FieldSet } from '@components/molecule/FieldSet'
 import { Panel } from '@components/molecule/Panel'
 import { TitleInput } from '@components/atom/TitleInput'
@@ -17,16 +18,21 @@ export const ArticleForm: FC<Props> = ({
   onClickAddRow,
   onValueChange,
 }) => {
+  const theme = useTheme()
   return (
     <Wrapper>
-      <TitleInput placeholder="Title" />
+      <TitleInput placeholder="Title" autoFocus={true} />
       {options.map((value, i) => (
-        <Panel key={`fieldSet${i + 1}`} title={`オプション#${i + 1}`}>
+        <StyledPanel
+          key={`fieldSet${i + 1}`}
+          title={`オプション#${i + 1}`}
+          themes={theme}
+        >
           <FieldSet
-            label={`オプション#${i + 1}`}
+            label="オプション名"
             onValueChange={(e) => onValueChange(e, i)}
           />
-        </Panel>
+        </StyledPanel>
       ))}
       <PrimaryButton size="s" onClick={onClickAddRow}>
         追加する
@@ -38,3 +44,11 @@ export const ArticleForm: FC<Props> = ({
 }
 
 const Wrapper = styled.div``
+const StyledPanel = styled(Panel)<{ themes: Theme }>(({ themes }) => {
+  const { size } = themes
+  return css`
+    &:not(:last-of-type) {
+      margin: 0 0 ${size.pxToRem(size.space.S)} 0;
+    }
+  `
+})
