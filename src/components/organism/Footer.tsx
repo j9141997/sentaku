@@ -36,7 +36,6 @@ const FooterContainer = styled.div<{ themes: Theme }>`
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      color: #fff;
       @media (min-width: ${PC}px) {
         max-width: 1024px;
         margin: 0 auto;
