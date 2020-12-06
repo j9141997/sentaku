@@ -4,14 +4,14 @@ import styled, { css } from 'styled-components'
 import { Theme, useTheme } from 'src/hooks/useTheme'
 
 export type Props = InputHTMLAttributes<HTMLInputElement> & {
-  onValueChange?: (e: ChangeEvent<HTMLInputElement>) => void
+  onChangeValue?: (e: ChangeEvent<HTMLInputElement>) => void
   className?: string
   type?: 'text' | 'url' | 'email' | 'password' | 'number'
   error?: boolean
 }
 
 export const Input = memo(
-  ({ value = '', className = '', onValueChange, ...props }: Props) => {
+  ({ value = '', className = '', onChangeValue, ...props }: Props) => {
     const theme = useTheme()
     return (
       <Wrapper
@@ -22,7 +22,7 @@ export const Input = memo(
         <StyledInput
           themes={theme}
           defaultValue={value}
-          onChange={onValueChange}
+          onChange={onChangeValue}
           {...props}
         />
       </Wrapper>
