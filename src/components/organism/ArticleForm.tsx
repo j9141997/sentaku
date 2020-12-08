@@ -10,15 +10,19 @@ import { PrimaryButton } from '@components/atom/PrimaryButton'
 import { Icon } from '@components/atom/Icon'
 
 export type Props = {
-  options?: { optionName: string; merits: []; demetits: [] }[]
-  onClickAddRow: (e: MouseEvent<HTMLButtonElement>) => void
-  onValueChange: (e: ChangeEvent<HTMLInputElement>, i: number) => void
+  options?: {
+    optionName: string
+    merits: string[]
+    demerits: string[]
+  }[]
+  onClickAddRow: (event: MouseEvent<HTMLButtonElement>, index?: number) => void
+  onChangeValue: (event: ChangeEvent<HTMLInputElement>, index: number) => void
 }
 
 export const ArticleForm: FC<Props> = ({
   options = [],
   onClickAddRow,
-  onValueChange,
+  onChangeValue,
 }) => {
   const theme = useTheme()
   return (
@@ -32,7 +36,7 @@ export const ArticleForm: FC<Props> = ({
         >
           <FieldSet
             label="オプション名"
-            onValueChange={(e) => onValueChange(e, i)}
+            onChangeValue={(e) => onChangeValue(e, i)}
           />
           <TableFieldSet columns={columns}>
             {(object.merits || ([''] as Array<string>)).map(
@@ -43,13 +47,17 @@ export const ArticleForm: FC<Props> = ({
               )
             )}
           </TableFieldSet>
-          <PrimaryButton size="s" onClick={onClickAddRow}>
+          <PrimaryButton
+            size="s"
+            data-type="merits"
+            onClick={(e) => onClickAddRow(e, i)}
+          >
             メリットを追加する
             <Icon name="MdAddCircleOutline" />
           </PrimaryButton>
         </StyledPanel>
       ))}
-      <PrimaryButton size="s" onClick={onClickAddRow}>
+      <PrimaryButton size="s" data-type="options" onClick={onClickAddRow}>
         追加する
         <Icon name="MdAddCircleOutline" />
       </PrimaryButton>
