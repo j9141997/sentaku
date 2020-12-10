@@ -1,8 +1,7 @@
 import React, { FC, MouseEvent, ChangeEvent } from 'react'
 import styled, { css } from 'styled-components'
 import { useTheme, Theme } from 'src/hooks/useTheme'
-import { FieldSet } from '@components/molecule/FieldSet'
-import { TableFieldSet } from '@components/molecule/TableFieldSet'
+import { FieldSet, TableFieldSet } from '@components/molecule/FieldSet'
 import { Panel } from '@components/molecule/Panel'
 import { Input } from '@components/atom/Input'
 import { TitleInput } from '@components/atom/TitleInput'
@@ -34,27 +33,54 @@ export const ArticleForm: FC<Props> = ({
           title={`オプション#${i + 1}`}
           themes={theme}
         >
-          <FieldSet
-            label="オプション名"
-            onChangeValue={(e) => onChangeValue(e, i)}
-          />
-          <TableFieldSet columns={columns}>
-            {(object.merits || ([''] as Array<string>)).map(
-              (merit: string, i: number) => (
-                <td key={`merit-${i}`}>
-                  <Input />
-                </td>
-              )
-            )}
-          </TableFieldSet>
-          <PrimaryButton
-            size="s"
-            data-type="merits"
-            onClick={(e) => onClickAddRow(e, i)}
-          >
-            メリットを追加する
-            <Icon name="MdAddCircleOutline" />
-          </PrimaryButton>
+          <InputGroup themes={theme}>
+            <FieldSet
+              label="オプション名"
+              onChangeValue={(e) => onChangeValue(e, i)}
+            />
+            <TableFieldSet columns={meritColumns}>
+              {(object.merits || ([''] as Array<string>)).map(
+                (merit: string, i: number) => (
+                  <tr>
+                    <td>
+                      <Input />
+                    </td>
+                  </tr>
+                )
+              )}
+            </TableFieldSet>
+            <FieldSet>
+              <PrimaryButton
+                size="s"
+                data-type="merits"
+                onClick={(e) => onClickAddRow(e, i)}
+              >
+                メリットを追加する
+                <Icon name="MdAddCircleOutline" />
+              </PrimaryButton>
+            </FieldSet>
+            <TableFieldSet columns={demeritColumns}>
+              {(object.demerits || ([''] as Array<string>)).map(
+                (demerits: string, i: number) => (
+                  <tr>
+                    <td>
+                      <Input />
+                    </td>
+                  </tr>
+                )
+              )}
+            </TableFieldSet>
+            <FieldSet>
+              <PrimaryButton
+                size="s"
+                data-type="demerits"
+                onClick={(e) => onClickAddRow(e, i)}
+              >
+                デメリットを追加する
+                <Icon name="MdAddCircleOutline" />
+              </PrimaryButton>
+            </FieldSet>
+          </InputGroup>
         </StyledPanel>
       ))}
       <PrimaryButton size="s" data-type="options" onClick={onClickAddRow}>
@@ -65,7 +91,8 @@ export const ArticleForm: FC<Props> = ({
   )
 }
 
-const columns = ['メリット']
+const meritColumns = ['メリット']
+const demeritColumns = ['デメリット']
 
 const Wrapper = styled.div``
 const StyledPanel = styled(Panel)<{ themes: Theme }>(({ themes }) => {
@@ -74,5 +101,12 @@ const StyledPanel = styled(Panel)<{ themes: Theme }>(({ themes }) => {
     &:not(:last-of-type) {
       margin: 0 0 ${size.pxToRem(size.space.S)} 0;
     }
+  `
+})
+
+const InputGroup = styled.div<{ themes: Theme }>(({ themes }) => {
+  const { size } = themes
+  return css`
+    margin: ${size.pxToRem(size.space.S)} 0 0;
   `
 })
