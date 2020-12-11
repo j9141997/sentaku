@@ -8,6 +8,7 @@ export type Props = InputHTMLAttributes<HTMLInputElement> & {
   className?: string
   type?: 'text' | 'url' | 'email' | 'password' | 'number'
   error?: boolean
+  value?: string
 }
 
 export const Input = memo(

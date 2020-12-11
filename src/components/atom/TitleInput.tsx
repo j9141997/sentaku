@@ -9,7 +9,7 @@ import styled, { css } from 'styled-components'
 import { useTheme, Theme } from '../../hooks/useTheme'
 
 export type Props = InputHTMLAttributes<HTMLInputElement> & {
-  onValueChange?: (e: ChangeEvent<HTMLInputElement>) => void
+  onChangeValue?: (e: ChangeEvent<HTMLInputElement>) => void
   error?: boolean
   placeholder?: string
   autoFocus?: boolean
