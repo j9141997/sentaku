@@ -15,7 +15,7 @@ export type Props = {
     demerits: string[]
   }[]
   onClickAddRow: (event: MouseEvent<HTMLButtonElement>, index?: number) => void
-  onChangeValue: (event: ChangeEvent<HTMLInputElement>, index: number) => void
+  onChangeValue: (event: ChangeEvent<HTMLInputElement>, index?: number) => void
 }
 
 export const ArticleForm: FC<Props> = ({
@@ -26,30 +26,40 @@ export const ArticleForm: FC<Props> = ({
   const theme = useTheme()
   return (
     <Wrapper>
-      <TitleInput placeholder="Title" autoFocus={true} />
-      {options.map((object, i) => (
-        <StyledPanel
-          key={`fieldSet${i + 1}`}
-          title={`オプション#${i + 1}`}
-          themes={theme}
-        >
-          <InputGroup themes={theme}>
-            <FieldSet
-              label="オプション名"
-              onChangeValue={(e) => onChangeValue(e, i)}
-            />
-            <TableFieldSet columns={meritColumns}>
-              {(object.merits || ([''] as Array<string>)).map(
-                (merit: string, i: number) => (
-                  <tr key={`merit-${i}`}>
-                    <td>
-                      <Input />
-                    </td>
-                  </tr>
-                )
-              )}
-            </TableFieldSet>
-            <FieldSet>
+      <Panel>
+        <TitleInput
+          placeholder="Title"
+          autoFocus={true}
+          onChangeValue={onChangeValue}
+        />
+        {options.map((object, i) => (
+          <StyledPanel
+            key={`fieldSet${i + 1}`}
+            title={`オプション#${i + 1}`}
+            themes={theme}
+          >
+            <InputGroup themes={theme}>
+              <FieldSet
+                label="オプション名"
+                onChangeValue={(e) => onChangeValue(e, i)}
+              />
+              <TableFieldSet columns={meritColumns}>
+                {(object.merits || ([''] as Array<string>)).map(
+                  (merit: string, meritIndex: number) => (
+                    <tr key={`merit-${meritIndex}`}>
+                      <td>
+                        <StyledInput
+                          themes={theme}
+                          value={merit}
+                          onChangeValue={(e) => {
+                            onChangeValue(e, meritIndex)
+                          }}
+                        />
+                      </td>
+                    </tr>
+                  )
+                )}
+              </TableFieldSet>
               <PrimaryButton
                 size="s"
                 data-type="merits"
@@ -58,19 +68,23 @@ export const ArticleForm: FC<Props> = ({
                 メリットを追加する
                 <Icon name="MdAddCircleOutline" />
               </PrimaryButton>
-            </FieldSet>
-            <TableFieldSet columns={demeritColumns}>
-              {(object.demerits || ([''] as Array<string>)).map(
-                (demerits: string, i: number) => (
-                  <tr key={`demerit-${i}`}>
-                    <td>
-                      <Input />
-                    </td>
-                  </tr>
-                )
-              )}
-            </TableFieldSet>
-            <FieldSet>
+              <TableFieldSet columns={demeritColumns}>
+                {(object.demerits || ([''] as Array<string>)).map(
+                  (demerit: string, demeritIndex: number) => (
+                    <tr key={`demerit-${demeritIndex}`}>
+                      <td>
+                        <StyledInput
+                          themes={theme}
+                          value={demerit}
+                          onChangeValue={(e) => {
+                            onChangeValue(e, demeritIndex)
+                          }}
+                        />
+                      </td>
+                    </tr>
+                  )
+                )}
+              </TableFieldSet>
               <PrimaryButton
                 size="s"
                 data-type="demerits"
@@ -79,16 +93,16 @@ export const ArticleForm: FC<Props> = ({
                 デメリットを追加する
                 <Icon name="MdAddCircleOutline" />
               </PrimaryButton>
-            </FieldSet>
-          </InputGroup>
-        </StyledPanel>
-      ))}
-      <ButtonWrapper>
-        <PrimaryButton size="s" data-type="options" onClick={onClickAddRow}>
-          追加する
-          <Icon name="MdAddCircleOutline" />
-        </PrimaryButton>
-      </ButtonWrapper>
+            </InputGroup>
+          </StyledPanel>
+        ))}
+        <ButtonWrapper>
+          <PrimaryButton size="s" data-type="options" onClick={onClickAddRow}>
+            追加する
+            <Icon name="MdAddCircleOutline" />
+          </PrimaryButton>
+        </ButtonWrapper>
+      </Panel>
     </Wrapper>
   )
 }
@@ -110,6 +124,13 @@ const InputGroup = styled.div<{ themes: Theme }>(({ themes }) => {
   const { size } = themes
   return css`
     margin: ${size.pxToRem(size.space.S)} 0 0;
+  `
+})
+
+const StyledInput = styled(Input)<{ themes: Theme }>(({ themes }) => {
+  const { size } = themes
+  return css`
+    margin: 0 0 ${size.pxToRem(size.space.XXS)} 0;
   `
 })
 
