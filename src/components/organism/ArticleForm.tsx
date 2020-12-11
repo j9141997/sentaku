@@ -41,7 +41,7 @@ export const ArticleForm: FC<Props> = ({
             <TableFieldSet columns={meritColumns}>
               {(object.merits || ([''] as Array<string>)).map(
                 (merit: string, i: number) => (
-                  <tr>
+                  <tr key={`merit-${i}`}>
                     <td>
                       <Input />
                     </td>
@@ -62,7 +62,7 @@ export const ArticleForm: FC<Props> = ({
             <TableFieldSet columns={demeritColumns}>
               {(object.demerits || ([''] as Array<string>)).map(
                 (demerits: string, i: number) => (
-                  <tr>
+                  <tr key={`demerit-${i}`}>
                     <td>
                       <Input />
                     </td>
@@ -83,10 +83,12 @@ export const ArticleForm: FC<Props> = ({
           </InputGroup>
         </StyledPanel>
       ))}
-      <PrimaryButton size="s" data-type="options" onClick={onClickAddRow}>
-        追加する
-        <Icon name="MdAddCircleOutline" />
-      </PrimaryButton>
+      <ButtonWrapper>
+        <PrimaryButton size="s" data-type="options" onClick={onClickAddRow}>
+          追加する
+          <Icon name="MdAddCircleOutline" />
+        </PrimaryButton>
+      </ButtonWrapper>
     </Wrapper>
   )
 }
@@ -110,3 +112,7 @@ const InputGroup = styled.div<{ themes: Theme }>(({ themes }) => {
     margin: ${size.pxToRem(size.space.S)} 0 0;
   `
 })
+
+const ButtonWrapper = styled.div`
+  text-align: center;
+`
