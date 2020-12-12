@@ -44,6 +44,7 @@ export const darkPalette = {
   BACKGROUND: '#111',
   MAIN: '#fff',
   SUB: '#111',
+  TEXT_LINK: '#888',
 }
 
 export const createPalette = (

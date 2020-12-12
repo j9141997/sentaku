@@ -18,7 +18,9 @@ export type Props = {
   onClickAddRow: (event: MouseEvent<HTMLButtonElement>, index?: number) => void
   onClickDeleteRow: (
     event: MouseEvent<HTMLButtonElement>,
-    index?: number
+    index?: number,
+    type?: string,
+    subIndex?: number
   ) => void
   onChangeValue: (event: ChangeEvent<HTMLInputElement>, index?: number) => void
 }
@@ -43,7 +45,13 @@ export const ArticleForm: FC<Props> = ({
             key={`fieldSet${i + 1}`}
             title={`オプション#${i + 1}`}
             themes={theme}
-            onClose={options.length > 1 ? onClickDeleteRow : null}
+            onClose={
+              options.length > 1
+                ? (e) => {
+                    onClickDeleteRow(e, i, 'options')
+                  }
+                : null
+            }
           >
             <InputGroup themes={theme}>
               <FieldSet
@@ -62,6 +70,17 @@ export const ArticleForm: FC<Props> = ({
                             onChangeValue(e, meritIndex)
                           }}
                         />
+                        {object.merits.length > 1 && (
+                          <Button
+                            type="button"
+                            themes={theme}
+                            onClick={(e) => {
+                              onClickDeleteRow(e, i, 'merits', meritIndex)
+                            }}
+                          >
+                            <Icon name="IoMdClose" size={16} />
+                          </Button>
+                        )}
                       </td>
                     </tr>
                   )
@@ -88,6 +107,17 @@ export const ArticleForm: FC<Props> = ({
                             onChangeValue(e, demeritIndex)
                           }}
                         />
+                        {object.demerits.length > 1 && (
+                          <Button
+                            type="button"
+                            themes={theme}
+                            onClick={(e) => {
+                              onClickDeleteRow(e, i, 'demerits', demeritIndex)
+                            }}
+                          >
+                            <Icon name="IoMdClose" size={16} />
+                          </Button>
+                        )}
                       </td>
                     </tr>
                   )
@@ -179,3 +209,14 @@ const StyledPrimaryButton = styled(PrimaryButton)<{ themes: Theme }>(
     `
   }
 )
+
+const Button = styled.button<{ themes: Theme }>(({ themes }) => {
+  const { palette } = themes
+  return css`
+    background: transparent;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    color: ${palette.TEXT_LINK};
+  `
+})

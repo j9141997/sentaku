@@ -12,6 +12,7 @@ type State = {
 }
 enum ActionType {
   ADD_ROW = 'ADD_ROW',
+  DELETE_ROW = 'DELETE_ROW',
   OPTIONS_CHANGE_VALUE = 'OPTIONS_CHANGE_VALUE',
 }
 
@@ -23,6 +24,7 @@ type Action = {
 const reducer: Reducer<State, Action> = (state, action) => {
   switch (action.type) {
     case ActionType.ADD_ROW:
+    case ActionType.DELETE_ROW:
       return {
         ...state,
         options: action.payload.options,
@@ -74,20 +76,22 @@ export const ArticleFormContainer: FC = () => {
   const handleDeleteRow: ComponentProps<
     typeof ArticleFormComponent
   >['onClickDeleteRow'] = useCallback(
-    (event, index = null) => {
+    (event, index = null, type = '', subIndex = null) => {
+      console.log('kita')
+      console.log(event.currentTarget, index)
       event.preventDefault()
       const values = Object.assign([], state.options)
-      const valueType = event.currentTarget.dataset.type || null
+      const valueType = type || event.currentTarget.dataset.type || null
       if (!valueType) {
         return
       } else if (valueType === 'options') {
-        values.push(initState.options[0])
+        values.splice(index, 1)
       } else {
-        values[index][valueType].push('')
+        values[index][valueType].splice(subIndex, 1)
       }
 
       dispatch({
-        type: ActionType.ADD_ROW,
+        type: ActionType.DELETE_ROW,
         payload: { ...state, options: [...values] },
       })
     },
