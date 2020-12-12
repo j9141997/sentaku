@@ -71,6 +71,29 @@ export const ArticleFormContainer: FC = () => {
     [dispatch, state]
   )
 
+  const handleDeleteRow: ComponentProps<
+    typeof ArticleFormComponent
+  >['onClickDeleteRow'] = useCallback(
+    (event, index = null) => {
+      event.preventDefault()
+      const values = Object.assign([], state.options)
+      const valueType = event.currentTarget.dataset.type || null
+      if (!valueType) {
+        return
+      } else if (valueType === 'options') {
+        values.push(initState.options[0])
+      } else {
+        values[index][valueType].push('')
+      }
+
+      dispatch({
+        type: ActionType.ADD_ROW,
+        payload: { ...state, options: [...values] },
+      })
+    },
+    [dispatch, state]
+  )
+
   const handleChangeValue: ComponentProps<
     typeof ArticleFormComponent
   >['onChangeValue'] = useCallback(
@@ -89,6 +112,7 @@ export const ArticleFormContainer: FC = () => {
   return (
     <ArticleFormComponent
       onClickAddRow={handleAddRow}
+      onClickDeleteRow={handleDeleteRow}
       onChangeValue={handleChangeValue}
       options={state.options}
     />

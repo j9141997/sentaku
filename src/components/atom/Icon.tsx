@@ -1,5 +1,5 @@
 import React from 'react'
-import { IoIosMoon } from 'react-icons/io'
+import { IoIosMoon, IoMdClose } from 'react-icons/io'
 import { WiDaySunny } from 'react-icons/wi'
 import { MdAddCircleOutline, MdArrowDropDown } from 'react-icons/md'
 
@@ -15,6 +15,7 @@ export const iconMap = {
   MdArrowDropDown: MdArrowDropDown,
   WiDaySunny: WiDaySunny,
   IoIosMoon: IoIosMoon,
+  IoMdClose: IoMdClose,
 }
 
 export const Icon: React.FC<IconProps> = ({

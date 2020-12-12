@@ -1,17 +1,29 @@
-import React, { FC } from 'react'
+import React, { FC, MouseEvent } from 'react'
 import styled, { css } from 'styled-components'
 import { Theme, useTheme } from '../../hooks/useTheme'
+import { Icon } from '@components/atom/Icon'
 
 type Props = {
   title?: string
   className?: string
+  onClose?: (event: MouseEvent<HTMLButtonElement>, index?: number) => void
 }
 
-export const Panel: FC<Props> = ({ children, title = '', className = '' }) => {
+export const Panel: FC<Props> = ({
+  children,
+  title = '',
+  className = '',
+  onClose,
+}) => {
   const theme = useTheme()
   return (
     <Wrapper className={className} themes={theme}>
-      {title && <Title themes={theme}>{title}</Title>}
+      {title && (
+        <PanelHeader>
+          <Title themes={theme}>{title}</Title>
+          {onClose && <Icon name="IoMdClose" size={24} />}
+        </PanelHeader>
+      )}
       {children}
     </Wrapper>
   )
@@ -28,6 +40,12 @@ const Wrapper = styled.div<{ themes: Theme }>(({ themes }) => {
       0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   `
 })
+
+const PanelHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
 
 const Title = styled.h4<{ themes: Theme }>(({ themes }) => {
   const { size } = themes
