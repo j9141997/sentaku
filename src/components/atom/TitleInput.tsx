@@ -15,18 +15,27 @@ export type Props = InputHTMLAttributes<HTMLInputElement> & {
   autoFocus?: boolean
 }
 
-export const TitleInput = memo(({ autoFocus, ...props }: Props) => {
-  const innerRef = useRef<HTMLInputElement>(null)
-  const theme = useTheme()
+export const TitleInput = memo(
+  ({ autoFocus, onChangeValue, ...props }: Props) => {
+    const innerRef = useRef<HTMLInputElement>(null)
+    const theme = useTheme()
 
-  useEffect(() => {
-    if (autoFocus && innerRef.current) {
-      innerRef.current.focus()
-    }
-  }, [autoFocus])
+    useEffect(() => {
+      if (autoFocus && innerRef.current) {
+        innerRef.current.focus()
+      }
+    }, [autoFocus])
 
-  return <StyledInput themes={theme} ref={innerRef} {...props} />
-})
+    return (
+      <StyledInput
+        themes={theme}
+        ref={innerRef}
+        onChange={onChangeValue}
+        {...props}
+      />
+    )
+  }
+)
 
 const StyledInput = styled.input<{ themes: Theme }>(({ themes }) => {
   const { size, palette } = themes

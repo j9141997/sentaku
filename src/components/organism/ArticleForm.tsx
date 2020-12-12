@@ -6,6 +6,7 @@ import { Panel } from '@components/molecule/Panel'
 import { Input } from '@components/atom/Input'
 import { TitleInput } from '@components/atom/TitleInput'
 import { PrimaryButton } from '@components/atom/PrimaryButton'
+import { SecondaryButton } from '@components/atom/SecondaryButton'
 import { Icon } from '@components/atom/Icon'
 
 export type Props = {
@@ -15,18 +16,25 @@ export type Props = {
     demerits: string[]
   }[]
   onClickAddRow: (event: MouseEvent<HTMLButtonElement>, index?: number) => void
+  onClickDeleteRow: (
+    event: MouseEvent<HTMLButtonElement>,
+    index?: number,
+    type?: string,
+    subIndex?: number
+  ) => void
   onChangeValue: (event: ChangeEvent<HTMLInputElement>, index?: number) => void
 }
 
 export const ArticleForm: FC<Props> = ({
   options = [],
   onClickAddRow,
+  onClickDeleteRow,
   onChangeValue,
 }) => {
   const theme = useTheme()
   return (
     <Wrapper>
-      <Panel>
+      <FormPanel themes={theme}>
         <TitleInput
           placeholder="Title"
           autoFocus={true}
@@ -37,6 +45,13 @@ export const ArticleForm: FC<Props> = ({
             key={`fieldSet${i + 1}`}
             title={`オプション#${i + 1}`}
             themes={theme}
+            onClose={
+              options.length > 1
+                ? (e) => {
+                    onClickDeleteRow(e, i, 'options')
+                  }
+                : null
+            }
           >
             <InputGroup themes={theme}>
               <FieldSet
@@ -55,12 +70,24 @@ export const ArticleForm: FC<Props> = ({
                             onChangeValue(e, meritIndex)
                           }}
                         />
+                        {object.merits.length > 1 && (
+                          <Button
+                            type="button"
+                            themes={theme}
+                            onClick={(e) => {
+                              onClickDeleteRow(e, i, 'merits', meritIndex)
+                            }}
+                          >
+                            <Icon name="IoMdClose" size={16} />
+                          </Button>
+                        )}
                       </td>
                     </tr>
                   )
                 )}
               </TableFieldSet>
               <PrimaryButton
+                type="button"
                 size="s"
                 data-type="merits"
                 onClick={(e) => onClickAddRow(e, i)}
@@ -80,12 +107,24 @@ export const ArticleForm: FC<Props> = ({
                             onChangeValue(e, demeritIndex)
                           }}
                         />
+                        {object.demerits.length > 1 && (
+                          <Button
+                            type="button"
+                            themes={theme}
+                            onClick={(e) => {
+                              onClickDeleteRow(e, i, 'demerits', demeritIndex)
+                            }}
+                          >
+                            <Icon name="IoMdClose" size={16} />
+                          </Button>
+                        )}
                       </td>
                     </tr>
                   )
                 )}
               </TableFieldSet>
               <PrimaryButton
+                type="button"
                 size="s"
                 data-type="demerits"
                 onClick={(e) => onClickAddRow(e, i)}
@@ -97,12 +136,30 @@ export const ArticleForm: FC<Props> = ({
           </StyledPanel>
         ))}
         <ButtonWrapper>
-          <PrimaryButton size="s" data-type="options" onClick={onClickAddRow}>
+          <PrimaryButton
+            type="button"
+            size="s"
+            data-type="options"
+            onClick={onClickAddRow}
+          >
             追加する
             <Icon name="MdAddCircleOutline" />
           </PrimaryButton>
         </ButtonWrapper>
-      </Panel>
+      </FormPanel>
+      <ButtonWrapper>
+        <StyledPrimaryButton
+          type="submit"
+          onClick={onClickAddRow}
+          wide={true}
+          themes={theme}
+        >
+          保存する
+        </StyledPrimaryButton>
+        <SecondaryButton type="button" wide={true}>
+          キャンセル
+        </SecondaryButton>
+      </ButtonWrapper>
     </Wrapper>
   )
 }
@@ -111,6 +168,12 @@ const meritColumns = ['メリット']
 const demeritColumns = ['デメリット']
 
 const Wrapper = styled.div``
+const FormPanel = styled(Panel)<{ themes: Theme }>(({ themes }) => {
+  const { size } = themes
+  return css`
+    margin: 0 0 ${size.pxToRem(size.space.S)} 0;
+  `
+})
 const StyledPanel = styled(Panel)<{ themes: Theme }>(({ themes }) => {
   const { size } = themes
   return css`
@@ -137,3 +200,23 @@ const StyledInput = styled(Input)<{ themes: Theme }>(({ themes }) => {
 const ButtonWrapper = styled.div`
   text-align: center;
 `
+
+const StyledPrimaryButton = styled(PrimaryButton)<{ themes: Theme }>(
+  ({ themes }) => {
+    const { size } = themes
+    return css`
+      margin: 0 0 ${size.pxToRem(size.space.XXS)} 0;
+    `
+  }
+)
+
+const Button = styled.button<{ themes: Theme }>(({ themes }) => {
+  const { palette } = themes
+  return css`
+    background: transparent;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    color: ${palette.TEXT_LINK};
+  `
+})
