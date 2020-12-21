@@ -3,28 +3,29 @@ import styled, { css } from 'styled-components'
 
 import { Theme, useTheme } from '../../hooks/useTheme'
 import { ContentPanel } from '@components/molecule/ContentPanel'
-type Props = {}
+type Props = {
+  data: {
+    uuid: string
+    title: string
+  }[]
+}
 
-export const PanelList: FC<Props> = () => {
+export const PanelList: FC<Props> = ({ data }) => {
   const theme = useTheme()
-
-  const data = []
-  for (let i = 0; i < 10; i++) {
-    const obj = {
-      title: `テストタイトル${i + 1}`,
-      description: `テスト詳細${i + 1}`,
-    }
-    data.push(obj)
-  }
 
   return (
     <Wrapper themes={theme}>
       {data.map((item, i) => {
         return (
           <StyledPanel
-            key={`item${i}`}
+            key={`item${item.uuid}`}
             item={item}
-            onClick={() => console.log(`clicked-${i}`)}
+            // onClick={() => (location.href = `/options/${item.uuid}`)}
+            onClick={() => {
+              console.log(
+                fetch(`${process.env.API_BASE_ENDPOINT}/options/${item.uuid}`)
+              )
+            }}
             themes={theme}
           />
         )

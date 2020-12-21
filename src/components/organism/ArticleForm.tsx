@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent, ChangeEvent } from 'react'
+import React, { FC, MouseEvent, ChangeEvent, SyntheticEvent } from 'react'
 import styled, { css } from 'styled-components'
 import { useTheme, Theme } from 'src/hooks/useTheme'
 import { FieldSet, TableFieldSet } from '@components/molecule/FieldSet'
@@ -23,6 +23,7 @@ export type Props = {
     subIndex?: number
   ) => void
   onChangeValue: (event: ChangeEvent<HTMLInputElement>, index?: number) => void
+  onSubmit: (event: SyntheticEvent<EventTarget>) => void
 }
 
 export const ArticleForm: FC<Props> = ({
@@ -30,122 +31,125 @@ export const ArticleForm: FC<Props> = ({
   onClickAddRow,
   onClickDeleteRow,
   onChangeValue,
+  onSubmit,
 }) => {
   const theme = useTheme()
   return (
     <Wrapper>
       <FormPanel themes={theme}>
-        <TitleInput
-          placeholder="Title"
-          autoFocus={true}
-          onChangeValue={onChangeValue}
-        />
-        {options.map((object, i) => (
-          <StyledPanel
-            key={`fieldSet${i + 1}`}
-            title={`オプション#${i + 1}`}
-            themes={theme}
-            onClose={
-              options.length > 1
-                ? (e) => {
-                    onClickDeleteRow(e, i, 'options')
-                  }
-                : null
-            }
-          >
-            <InputGroup themes={theme}>
-              <FieldSet
-                label="オプション名"
-                onChangeValue={(e) => onChangeValue(e, i)}
-              />
-              <TableFieldSet columns={meritColumns}>
-                {(object.merits || ([''] as Array<string>)).map(
-                  (merit: string, meritIndex: number) => (
-                    <tr key={`merit-${meritIndex}`}>
-                      <td>
-                        <StyledInput
-                          themes={theme}
-                          value={merit}
-                          onChangeValue={(e) => {
-                            onChangeValue(e, meritIndex)
-                          }}
-                        />
-                        {object.merits.length > 1 && (
-                          <Button
-                            type="button"
+        <form onSubmit={onSubmit}>
+          <TitleInput
+            placeholder="Title"
+            autoFocus={true}
+            onChangeValue={onChangeValue}
+          />
+          {options.map((object, i) => (
+            <StyledPanel
+              key={`fieldSet${i + 1}`}
+              title={`オプション#${i + 1}`}
+              themes={theme}
+              onClose={
+                options.length > 1
+                  ? (e) => {
+                      onClickDeleteRow(e, i, 'options')
+                    }
+                  : null
+              }
+            >
+              <InputGroup themes={theme}>
+                <FieldSet
+                  label="オプション名"
+                  onChangeValue={(e) => onChangeValue(e, i)}
+                />
+                <TableFieldSet columns={meritColumns}>
+                  {(object.merits || ([''] as Array<string>)).map(
+                    (merit: string, meritIndex: number) => (
+                      <tr key={`merit-${meritIndex}`}>
+                        <td>
+                          <StyledInput
                             themes={theme}
-                            onClick={(e) => {
-                              onClickDeleteRow(e, i, 'merits', meritIndex)
+                            value={merit}
+                            onChangeValue={(e) => {
+                              onChangeValue(e, meritIndex)
                             }}
-                          >
-                            <Icon name="IoMdClose" size={16} />
-                          </Button>
-                        )}
-                      </td>
-                    </tr>
-                  )
-                )}
-              </TableFieldSet>
-              <PrimaryButton
-                type="button"
-                size="s"
-                data-type="merits"
-                onClick={(e) => onClickAddRow(e, i)}
-              >
-                メリットを追加する
-                <Icon name="MdAddCircleOutline" />
-              </PrimaryButton>
-              <TableFieldSet columns={demeritColumns}>
-                {(object.demerits || ([''] as Array<string>)).map(
-                  (demerit: string, demeritIndex: number) => (
-                    <tr key={`demerit-${demeritIndex}`}>
-                      <td>
-                        <StyledInput
-                          themes={theme}
-                          value={demerit}
-                          onChangeValue={(e) => {
-                            onChangeValue(e, demeritIndex)
-                          }}
-                        />
-                        {object.demerits.length > 1 && (
-                          <Button
-                            type="button"
+                          />
+                          {object.merits.length > 1 && (
+                            <Button
+                              type="button"
+                              themes={theme}
+                              onClick={(e) => {
+                                onClickDeleteRow(e, i, 'merits', meritIndex)
+                              }}
+                            >
+                              <Icon name="IoMdClose" size={16} />
+                            </Button>
+                          )}
+                        </td>
+                      </tr>
+                    )
+                  )}
+                </TableFieldSet>
+                <PrimaryButton
+                  type="button"
+                  size="s"
+                  data-type="merits"
+                  onClick={(e) => onClickAddRow(e, i)}
+                >
+                  メリットを追加する
+                  <Icon name="MdAddCircleOutline" />
+                </PrimaryButton>
+                <TableFieldSet columns={demeritColumns}>
+                  {(object.demerits || ([''] as Array<string>)).map(
+                    (demerit: string, demeritIndex: number) => (
+                      <tr key={`demerit-${demeritIndex}`}>
+                        <td>
+                          <StyledInput
                             themes={theme}
-                            onClick={(e) => {
-                              onClickDeleteRow(e, i, 'demerits', demeritIndex)
+                            value={demerit}
+                            onChangeValue={(e) => {
+                              onChangeValue(e, demeritIndex)
                             }}
-                          >
-                            <Icon name="IoMdClose" size={16} />
-                          </Button>
-                        )}
-                      </td>
-                    </tr>
-                  )
-                )}
-              </TableFieldSet>
-              <PrimaryButton
-                type="button"
-                size="s"
-                data-type="demerits"
-                onClick={(e) => onClickAddRow(e, i)}
-              >
-                デメリットを追加する
-                <Icon name="MdAddCircleOutline" />
-              </PrimaryButton>
-            </InputGroup>
-          </StyledPanel>
-        ))}
-        <ButtonWrapper>
-          <PrimaryButton
-            type="button"
-            size="s"
-            data-type="options"
-            onClick={onClickAddRow}
-          >
-            追加する
-            <Icon name="MdAddCircleOutline" />
-          </PrimaryButton>
-        </ButtonWrapper>
+                          />
+                          {object.demerits.length > 1 && (
+                            <Button
+                              type="button"
+                              themes={theme}
+                              onClick={(e) => {
+                                onClickDeleteRow(e, i, 'demerits', demeritIndex)
+                              }}
+                            >
+                              <Icon name="IoMdClose" size={16} />
+                            </Button>
+                          )}
+                        </td>
+                      </tr>
+                    )
+                  )}
+                </TableFieldSet>
+                <PrimaryButton
+                  type="button"
+                  size="s"
+                  data-type="demerits"
+                  onClick={(e) => onClickAddRow(e, i)}
+                >
+                  デメリットを追加する
+                  <Icon name="MdAddCircleOutline" />
+                </PrimaryButton>
+              </InputGroup>
+            </StyledPanel>
+          ))}
+          <ButtonWrapper>
+            <PrimaryButton
+              type="button"
+              size="s"
+              data-type="options"
+              onClick={onClickAddRow}
+            >
+              追加する
+              <Icon name="MdAddCircleOutline" />
+            </PrimaryButton>
+          </ButtonWrapper>
+        </form>
       </FormPanel>
       <ButtonWrapper>
         <StyledPrimaryButton
