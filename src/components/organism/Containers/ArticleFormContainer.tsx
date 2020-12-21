@@ -113,11 +113,21 @@ export const ArticleFormContainer: FC = () => {
     },
     [dispatch, state]
   )
+
+  const handleSubmit = useCallback(
+    (event) => {
+      event.preventDefault()
+      const params = state.options
+    },
+    [dispatch, state]
+  )
+
   return (
     <ArticleFormComponent
       onClickAddRow={handleAddRow}
       onClickDeleteRow={handleDeleteRow}
       onChangeValue={handleChangeValue}
+      onSubmit={handleSubmit}
       options={state.options}
     />
   )
