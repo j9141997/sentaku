@@ -22,7 +22,11 @@ export type Props = {
     type?: string,
     subIndex?: number
   ) => void
-  onChangeValue: (event: ChangeEvent<HTMLInputElement>, index?: number) => void
+  onChangeValue: (event: ChangeEvent<HTMLInputElement>) => void
+  onChangeOptionValue: (
+    event: ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => void
   onSubmit: (event: SyntheticEvent<EventTarget>) => void
 }
 
@@ -31,14 +35,16 @@ export const ArticleForm: FC<Props> = ({
   onClickAddRow,
   onClickDeleteRow,
   onChangeValue,
+  onChangeOptionValue,
   onSubmit,
 }) => {
   const theme = useTheme()
   return (
     <Wrapper>
-      <FormPanel themes={theme}>
-        <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit}>
+        <FormPanel themes={theme}>
           <TitleInput
+            name="title"
             placeholder="Title"
             autoFocus={true}
             onChangeValue={onChangeValue}
@@ -59,7 +65,7 @@ export const ArticleForm: FC<Props> = ({
               <InputGroup themes={theme}>
                 <FieldSet
                   label="オプション名"
-                  onChangeValue={(e) => onChangeValue(e, i)}
+                  onChangeValue={(e) => onChangeOptionValue(e, i)}
                 />
                 <TableFieldSet columns={meritColumns}>
                   {(object.merits || ([''] as Array<string>)).map(
@@ -70,7 +76,7 @@ export const ArticleForm: FC<Props> = ({
                             themes={theme}
                             value={merit}
                             onChangeValue={(e) => {
-                              onChangeValue(e, meritIndex)
+                              onChangeOptionValue(e, meritIndex)
                             }}
                           />
                           {object.merits.length > 1 && (
@@ -107,7 +113,7 @@ export const ArticleForm: FC<Props> = ({
                             themes={theme}
                             value={demerit}
                             onChangeValue={(e) => {
-                              onChangeValue(e, demeritIndex)
+                              onChangeOptionValue(e, demeritIndex)
                             }}
                           />
                           {object.demerits.length > 1 && (
@@ -149,21 +155,16 @@ export const ArticleForm: FC<Props> = ({
               <Icon name="MdAddCircleOutline" />
             </PrimaryButton>
           </ButtonWrapper>
-        </form>
-      </FormPanel>
-      <ButtonWrapper>
-        <StyledPrimaryButton
-          type="submit"
-          onClick={onClickAddRow}
-          wide={true}
-          themes={theme}
-        >
-          保存する
-        </StyledPrimaryButton>
-        <SecondaryButton type="button" wide={true}>
-          キャンセル
-        </SecondaryButton>
-      </ButtonWrapper>
+        </FormPanel>
+        <ButtonWrapper>
+          <StyledPrimaryButton type="submit" wide={true} themes={theme}>
+            保存する
+          </StyledPrimaryButton>
+          <SecondaryButton type="button" wide={true}>
+            キャンセル
+          </SecondaryButton>
+        </ButtonWrapper>
+      </form>
     </Wrapper>
   )
 }
