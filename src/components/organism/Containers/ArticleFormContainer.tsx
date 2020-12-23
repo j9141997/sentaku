@@ -6,6 +6,7 @@ import React, {
   useCallback,
 } from 'react'
 import { ArticleForm as ArticleFormComponent } from '@components/organism/ArticleForm'
+import OptionInteractor from 'src/interactors/options/OptionInteractor'
 
 type State = {
   options: ComponentProps<typeof ArticleFormComponent>['options']
@@ -14,6 +15,7 @@ enum ActionType {
   ADD_ROW = 'ADD_ROW',
   DELETE_ROW = 'DELETE_ROW',
   OPTIONS_CHANGE_VALUE = 'OPTIONS_CHANGE_VALUE',
+  CHANGE_VALUE = 'CHANGE_VALUE',
 }
 
 type Action = {
@@ -34,10 +36,15 @@ const reducer: Reducer<State, Action> = (state, action) => {
         ...state,
         options: action.payload.options,
       }
+    case ActionType.CHANGE_VALUE:
+      return {
+        ...action.payload,
+      }
   }
 }
 
 const initState = {
+  title: '',
   options: [
     {
       optionName: '',
@@ -77,8 +84,6 @@ export const ArticleFormContainer: FC = () => {
     typeof ArticleFormComponent
   >['onClickDeleteRow'] = useCallback(
     (event, index = null, type = '', subIndex = null) => {
-      console.log('kita')
-      console.log(event.currentTarget, index)
       event.preventDefault()
       const values = Object.assign([], state.options)
       const valueType = type || event.currentTarget.dataset.type || null
@@ -101,6 +106,22 @@ export const ArticleFormContainer: FC = () => {
   const handleChangeValue: ComponentProps<
     typeof ArticleFormComponent
   >['onChangeValue'] = useCallback(
+    (event) => {
+      const newValue = Object.assign({}, state)
+      const { name, value } = event.target
+      newValue[name] = value
+
+      dispatch({
+        type: ActionType.CHANGE_VALUE,
+        payload: { ...newValue },
+      })
+    },
+    [dispatch, state]
+  )
+
+  const handleChangeOptionValue: ComponentProps<
+    typeof ArticleFormComponent
+  >['onChangeOptionValue'] = useCallback(
     (event, index) => {
       const values = Object.assign([], state.options)
       const { name, value } = event.target
@@ -115,11 +136,14 @@ export const ArticleFormContainer: FC = () => {
   )
 
   const handleSubmit = useCallback(
-    (event) => {
+    async (event) => {
+      console.log('ita')
       event.preventDefault()
-      const params = state.options
+      event.stopPropagation()
+      const res = await new OptionInteractor().post(state)
+      console.log(res)
     },
-    [dispatch, state]
+    [state]
   )
 
   return (
@@ -127,6 +151,7 @@ export const ArticleFormContainer: FC = () => {
       onClickAddRow={handleAddRow}
       onClickDeleteRow={handleDeleteRow}
       onChangeValue={handleChangeValue}
+      onChangeOptionValue={handleChangeOptionValue}
       onSubmit={handleSubmit}
       options={state.options}
     />
