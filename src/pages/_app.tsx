@@ -39,10 +39,6 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
     }
   `
 
-  if (!componentMounted) {
-    return <div />
-  }
-
   return (
     <React.Fragment>
       <GlocalStyle />
