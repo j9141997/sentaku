@@ -9,7 +9,7 @@ import { ArticleForm as ArticleFormComponent } from '@components/organism/Articl
 import OptionInteractor from 'src/interactors/options/OptionInteractor'
 
 type State = {
-  options: ComponentProps<typeof ArticleFormComponent>['options']
+  options: ComponentProps<typeof Article　FormComponent>['options']
 }
 enum ActionType {
   ADD_ROW = 'ADD_ROW',
